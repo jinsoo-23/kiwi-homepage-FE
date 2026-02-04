@@ -26,7 +26,7 @@ export function ArchitectureCard({
       </CardHeader>
       <CardContent className="pt-0">
         <CardDescription
-          className={cn("text-[20px] text-[var(--label-regular)]")}
+          className={cn("text-[20px] text-label-regular")}
         >
           {card.description}
         </CardDescription>

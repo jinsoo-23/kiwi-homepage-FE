@@ -14,31 +14,31 @@ import { ArchitectureCardGrid } from "./ArchitectureCardGrid";
 import { ArchitectureTabTrigger } from "./ArchitectureTabTrigger";
 
 const boxBorderByTab: Record<TabValue, string> = {
-  service: "border-[var(--linus-green-light)]",
-  platform: "border-[var(--linus-dark-green)]",
-  foundation: "border-[var(--linus-foundation)]",
+  service: "border-linus-service",
+  platform: "border-linus-primary-dark",
+  foundation: "border-linus-foundation",
 };
 
 const cardBaseClassName = cn(
-  "rounded-xl border border-white/40 shadow-[var(--shadow-card)]"
+  "rounded-xl border border-white/40 shadow-card"
 );
 
 const cardClassNameByTab = {
-  service: cn(cardBaseClassName, "bg-[var(--linus-light-2)]/80"),
+  service: cn(cardBaseClassName, "bg-linus-service-light/80"),
   platform: cn(
     cardBaseClassName,
-    "bg-[var(--linus-platform-card-bg)] border-[var(--linus-platform-card-border)]"
+    "bg-linus-primary-dark-bg border-linus-primary-dark-border"
   ),
   foundation: cn(
     cardBaseClassName,
-    "bg-[var(--linus-foundation-card-bg)] border-[var(--linus-foundation-card-border)]"
+    "bg-linus-foundation-bg border-linus-foundation-border"
   ),
 } as const;
 
 const titleClassNameByTab = {
-  service: "text-[20px] font-bold text-[var(--linus-green-light)]",
-  platform: "text-[20px] font-bold text-[var(--linus-dark-green)]",
-  foundation: "text-[20px] font-bold text-[var(--linus-foundation)]",
+  service: "text-[20px] font-bold text-linus-service",
+  platform: "text-[20px] font-bold text-linus-primary-dark",
+  foundation: "text-[20px] font-bold text-linus-foundation",
 } as const;
 
 type ServiceSectionProps = {

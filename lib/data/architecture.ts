@@ -1,9 +1,6 @@
-export type TabValue = "service" | "platform" | "foundation";
+import type { ArchitectureCard, TabValue } from "@/lib/types";
 
-export type ArchitectureCard = {
-  title: string;
-  description: string;
-};
+export type { ArchitectureCard, TabValue };
 
 export const SERVICE_CARDS: ArchitectureCard[] = [
   { title: "학사관리시스템", description: "수강신청·성적 등 학사행정 지원" },

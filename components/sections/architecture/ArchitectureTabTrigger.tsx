@@ -7,21 +7,21 @@ const tabTriggerBase = cn(
   "rounded-[8px] h-[54px] items-center justify-center px-6 border-2 border-transparent text-center",
   "text-[28px] font-bold leading-[135.8%] tracking-[-0.661px]",
   "[font-feature-settings:'liga'_off,'clig'_off] font-[family-name:var(--font-pretendard)]",
-  "text-[var(--semantic-label-disable)]"
+  "text-label-disable"
 );
 
 const tabTriggerByValue: Record<TabValue, string> = {
   service: cn(
     tabTriggerBase,
-    "data-[state=active]:text-[var(--linus-green-light)] data-[state=active]:border-[var(--linus-green-light)] data-[state=active]:!bg-[var(--linus-service-active-bg)]"
+    "data-[state=active]:text-linus-service data-[state=active]:border-linus-service data-[state=active]:!bg-linus-service-bg"
   ),
   platform: cn(
     tabTriggerBase,
-    "data-[state=active]:text-[var(--linus-dark-green)] data-[state=active]:border-[var(--linus-dark-green)] data-[state=active]:!bg-[var(--linus-platform-active-bg)]"
+    "data-[state=active]:text-linus-primary-dark data-[state=active]:border-linus-primary-dark data-[state=active]:!bg-linus-primary-dark-bg"
   ),
   foundation: cn(
     tabTriggerBase,
-    "data-[state=active]:text-[var(--linus-foundation)] data-[state=active]:border-[var(--linus-foundation)] data-[state=active]:!bg-[var(--linus-foundation-active-bg)]"
+    "data-[state=active]:text-linus-foundation data-[state=active]:border-linus-foundation data-[state=active]:!bg-linus-foundation-bg"
   ),
 };
 
