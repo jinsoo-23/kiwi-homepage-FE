@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 type StackProps = {
   direction?: "row" | "column";
-  gap?: 2 | 3 | 4 | 6 | 8 | 10 | 80 | 200;
+  gap?: 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 15 | 16 | 20 | 24 | 80 | 200;
   align?: "start" | "center" | "end" | "stretch";
   justify?: "start" | "center" | "end" | "between";
   className?: string;
@@ -10,12 +10,19 @@ type StackProps = {
 };
 
 const gapMap = {
+  1: "gap-1",
   2: "gap-2",
   3: "gap-3",
   4: "gap-4",
+  5: "gap-5",
   6: "gap-6",
   8: "gap-8",
   10: "gap-10",
+  12: "gap-12",
+  15: "gap-[60px]",
+  16: "gap-16",
+  20: "gap-20",
+  24: "gap-24",
   80: "gap-[80px]",
   200: "gap-[200px]",
 } as const;
