@@ -1,4 +1,4 @@
-import { Header } from "@/components/Header";
+import { Footer, Header } from "@/components/layout";
 import { HomeMain } from "@/app/HomeMain";
 import { Box } from "@/components/ui/Box";
 import { header } from "@/lib/uiPatterns";
@@ -12,6 +12,7 @@ export default function Home() {
       <Box as="main" id="main-content" aria-label="본문">
         <HomeMain />
       </Box>
+      <Footer />
     </Box>
   );
 }
