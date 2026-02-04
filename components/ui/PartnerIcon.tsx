@@ -1,9 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import type { PartnerIconVariant } from "@/lib/types";
 
-const PARTNER_ICON_MAP = {
+const PARTNER_ICON_MAP: Record<PartnerIconVariant, string> = {
   canvas: "canvas.svg",
   ignite_ai: "Ignite_ai.svg",
   panopto: "panopto.svg",
@@ -11,9 +10,10 @@ const PARTNER_ICON_MAP = {
   slack: "slack.svg",
   notion: "notion.svg",
   genwave: "genwave.svg",
-} as const;
+  diquest: "diquest.svg",
+};
 
-export type PartnerIconVariant = keyof typeof PARTNER_ICON_MAP;
+export type { PartnerIconVariant };
 
 export const PARTNER_ICON_VARIANTS: PartnerIconVariant[] = [
   "canvas",
@@ -23,6 +23,7 @@ export const PARTNER_ICON_VARIANTS: PartnerIconVariant[] = [
   "slack",
   "notion",
   "genwave",
+  "diquest",
 ];
 
 type PartnerIconProps = {

@@ -1,6 +1,8 @@
+import * as React from "react";
 import { cn } from "@/lib/utils";
 
 type ContainerProps = {
+  id?: string;
   maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
   className?: string;
   children?: React.ReactNode;
@@ -15,14 +17,16 @@ const maxWidthMap = {
   full: "max-w-full",
 } as const;
 
-export function Container({
-  maxWidth = "xl",
-  className,
-  children,
-}: ContainerProps) {
-  return (
-    <div className={cn("mx-auto w-full", maxWidthMap[maxWidth], className)}>
-      {children}
-    </div>
-  );
-}
+export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
+  function Container({ id, maxWidth = "xl", className, children }, ref) {
+    return (
+      <div
+        id={id}
+        ref={ref}
+        className={cn("mx-auto w-full", maxWidthMap[maxWidth], className)}
+      >
+        {children}
+      </div>
+    );
+  }
+);

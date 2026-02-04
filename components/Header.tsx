@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { KiwiLogo } from "@/components/ui/KiwiLogo";
+import { LocaleIcon } from "@/components/ui/LocaleIcon";
 import { Stack } from "@/components/ui/Stack";
 import { header } from "@/lib/ui-patterns";
 
@@ -18,7 +18,7 @@ export function Header() {
           className="gap-2"
           aria-label="언어 선택: 한국어"
         >
-          <Image src="/icon/locale.svg" alt="" width={16} height={16} className="size-4" />
+          <LocaleIcon width={16} height={16} className="size-4" />
           <span>KO</span>
         </Button>
       </Stack>

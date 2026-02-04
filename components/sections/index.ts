@@ -1,5 +1,5 @@
 export { HeroSection } from "./hero";
-export { IntroSection } from "./intro";
-export { PartnersCarouselSection, PartnersSection } from "./partners";
+export { IntroScrollBlock } from "./intro";
+export { PartnersCarouselSection } from "./partners";
 export { SectionTitle } from "./SectionTitle";
 export { ServiceSection } from "./architecture";

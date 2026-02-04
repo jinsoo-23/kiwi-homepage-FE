@@ -1,5 +1,3 @@
-"use client";
-
 import { useId } from "react";
 import { cn } from "@/lib/utils";
 import { SCROLL_BG_DATA_URL } from "@/lib/scrollBgData";
@@ -9,6 +7,8 @@ type ScrollBgImageProps = {
   className?: string;
   width?: number;
   height?: number;
+  /** true면 div + background-image로 영역을 꽉 채움 (배경 표시 확실) */
+  cover?: boolean;
 };
 
 /**
@@ -19,10 +19,33 @@ export function ScrollBgImage({
   className,
   width = 1920,
   height = 1554,
+  cover = false,
 }: ScrollBgImageProps) {
   const id = useId().replace(/:/g, "");
   const patternId = `scrollbg-pattern-${id}`;
   const imageId = `scrollbg-image-${id}`;
+
+  if (cover) {
+    return (
+      <div
+        className={cn(
+          "absolute inset-0 h-full w-full min-h-full min-w-full overflow-hidden bg-muted",
+          className
+        )}
+      >
+        {SCROLL_BG_DATA_URL && (
+          <img
+            src={SCROLL_BG_DATA_URL}
+            alt={alt}
+            className="absolute inset-0 h-full min-h-full w-full min-w-full object-cover object-center"
+            decoding="async"
+            role={alt ? "img" : "presentation"}
+            aria-hidden={!alt}
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <svg

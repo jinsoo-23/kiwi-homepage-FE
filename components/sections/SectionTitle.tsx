@@ -3,15 +3,17 @@ import { Stack } from "@/components/ui/Stack";
 
 type SectionTitleProps = {
   id?: string;
-  children: React.ReactNode;
+  title: string;
+  /** Stack 정렬 (기본: center) */
+  justify?: "start" | "center" | "end" | "between";
 };
 
-export function SectionTitle({ id, children }: SectionTitleProps) {
+export function SectionTitle({ id, title, justify = "center" }: SectionTitleProps) {
   return (
     <h2 id={id} className="text-[40px] font-bold">
-      <Stack direction="row" gap={2} align="center" justify="center">
+      <Stack direction="row" gap={2} align="center" justify={justify}>
         <KiwiLogo width={120} height={36} alt="" />
-        <span>{children}</span>
+        <span>{title}</span>
       </Stack>
     </h2>
   );
