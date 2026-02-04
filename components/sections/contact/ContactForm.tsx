@@ -39,10 +39,7 @@ export function ContactForm() {
     },
   });
 
-  const email = watch("email");
-  const inquiryType = watch("inquiryType");
-  const message = watch("message");
-  const privacyConsent = watch("privacyConsent");
+  const { email, inquiryType, message, privacyConsent } = watch();
 
   const isFormFilled =
     !!email?.trim() &&
@@ -193,7 +190,7 @@ export function ContactForm() {
 
       {/* 문의 내용 */}
       <div className="flex flex-col gap-2">
-        <label htmlFor="contact-message" className="text-sm font-medium text-label-regular">
+        <label htmlFor="contact-message" className="text-sm font-semibold text-label-regular">
           문의 내용
         </label>
         <textarea
@@ -246,7 +243,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={isSubmitting || !isFormFilled}
-        className="w-full rounded-[100px] bg-linus-primary py-5 text-[18px] font-extrabold text-white hover:bg-linus-primary-hover disabled:opacity-50 mt-3"
+        className="w-full rounded-[100px] bg-linus-primary py-5 text-[18px] font-extrabold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50 mt-3"
       >
         제출
       </Button>

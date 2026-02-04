@@ -10,7 +10,7 @@ export const contactFormSchema = z.object({
   inquiryType: z.string().min(1, "문의 구분을 선택해 주세요."),
   message: z.string().optional(),
   privacyConsent: z.literal(true, {
-    errorMap: () => ({ message: "개인정보 수집에 동의해 주세요." }),
+    message: "개인정보 수집에 동의해 주세요.",
   }),
   marketingConsent: z.boolean().optional(),
 });
