@@ -10,7 +10,7 @@ import { PartnerCard } from "@/components/sections/partners/PartnerCard";
 import { Container } from "@/components/ui/Container";
 import { SectionAlt } from "@/components/ui/SectionAlt";
 import { TOGETHER_PARTNER_CARDS } from "@/lib/data/partners";
-import { sectionContent } from "@/lib/ui-patterns";
+import { sectionContent } from "@/lib/uiPatterns";
 export function HomeMain() {
   return (
     <>

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { scrollToMainContainer } from "@/lib/scroll";
-import { heroCta } from "@/lib/ui-patterns";
+import { heroCta } from "@/lib/uiPatterns";
 
 export function ScrollToMainButton() {
   return (

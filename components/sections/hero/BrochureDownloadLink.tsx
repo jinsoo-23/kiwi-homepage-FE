@@ -1,5 +1,5 @@
 import { paths } from "@/lib/paths";
-import { heroCta } from "@/lib/ui-patterns";
+import { heroCta } from "@/lib/uiPatterns";
 
 export function BrochureDownloadLink() {
   return (

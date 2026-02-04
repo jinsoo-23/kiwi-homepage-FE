@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { KiwiLogo } from "@/components/ui/KiwiLogo";
 import { LocaleIcon } from "@/components/ui/LocaleIcon";
 import { Stack } from "@/components/ui/Stack";
-import { header } from "@/lib/ui-patterns";
+import { header } from "@/lib/uiPatterns";
 
 export function Header() {
   return (

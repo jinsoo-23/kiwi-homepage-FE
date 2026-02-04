@@ -1,6 +1,6 @@
 import { Box } from "@/components/ui/Box";
 import { cn } from "@/lib/utils";
-import { sectionAlt } from "@/lib/ui-patterns";
+import { sectionAlt } from "@/lib/uiPatterns";
 
 type SectionAltProps = {
   children?: React.ReactNode;
