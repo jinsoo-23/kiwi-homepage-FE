@@ -15,7 +15,7 @@ export const PARTNER_CARDS: PartnerCard[] = [
   },
   {
     title: "Canvas IgniteAI",
-    icon: "ignite_ai",
+    icon: "igniteAi",
     description:
       "Instructure사가 OpenAI 기술을 기반으로 공동 설계한 교육 특화 AI로, 과제 · 퀴즈 · 루브릭 생성부터 토론 요약까지 학습 운영 전반을 지능적으로 지원합니다.",
   },
