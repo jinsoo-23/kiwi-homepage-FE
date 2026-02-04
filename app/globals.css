@@ -28,31 +28,31 @@
   --label-regular: #171719;
   --label-alternative: rgba(70, 71, 76, 0.68);
   --label-disable: rgba(70, 71, 76, 0.2);
-  --semantic-label-disable: var(--label-disable);
-  --semantic-label-regular: var(--label-regular);
-  --semantic-label-alternative: var(--label-alternative);
 
-  --linus-dark-green: #007E00;
-  --linus-green: #31C11F;
-  --linus-green-light: #7DAF31;
-  --linus-mist-green: #EDFFC8;
-  --linus-default-green: #52924E;
+  --linus-white: #ffffff;
+  --linus-primary: #97C11F;
+  --linus-primary-light: #EDFFC8;
+  --linus-primary-dark: #007E00;
+  --linus-primary-hover: #31C11F;
+  --linus-service: #7DAF31;
+  --linus-service-light: #E7F1D3;
+  --linus-hero: #52924E;
   --linus-foundation: #946707;
-  --linus-light-2: #E7F1D3;
 
-  --linus-service-active-bg: rgba(125, 175, 49, 0.12);
-  --linus-platform-active-bg: rgba(0, 126, 0, 0.12);
-  --linus-foundation-active-bg: rgba(148, 103, 7, 0.12);
-  --linus-platform-card-bg: rgba(0, 126, 0, 0.12);
-  --linus-platform-card-border: rgba(0, 126, 0, 0.3);
-  --linus-foundation-card-bg: rgba(148, 103, 7, 0.12);
-  --linus-foundation-card-border: rgba(148, 103, 7, 0.3);
+  --linus-service-bg: rgba(125, 175, 49, 0.12);
+  --linus-primary-dark-bg: rgba(0, 126, 0, 0.12);
+  --linus-primary-dark-border: rgba(0, 126, 0, 0.3);
+  --linus-foundation-bg: rgba(148, 103, 7, 0.12);
+  --linus-foundation-border: rgba(148, 103, 7, 0.3);
 
-  --linus-hero-gradient: linear-gradient(180deg, #fff 28%, #97C11F 80%, var(--linus-default-green) 100%);
+  --linus-hero-gradient: linear-gradient(180deg, var(--linus-white) 28%, var(--linus-primary) 80%, var(--linus-hero) 100%);
   --surface-section-alt: #FBFBFB;
 
   --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-glass: inset 0 1px 6px 0 rgba(255, 255, 255, 0.08), 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
 }
 
 @theme inline {
@@ -71,6 +71,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: calc(var(--radius) + 2px);
@@ -81,15 +83,28 @@
   --color-label-regular: var(--label-regular);
   --color-label-neutral: var(--label-neutral);
 
-  --color-linus-dark-green: var(--linus-dark-green);
-  --color-linus-green: var(--linus-green);
-  --color-linus-green-light: var(--linus-green-light);
-  --color-linus-mist-green: var(--linus-mist-green);
-  --color-linus-default-green: var(--linus-default-green);
+  --color-linus-white: var(--linus-white);
+  --color-linus-primary: var(--linus-primary);
+  --color-linus-primary-light: var(--linus-primary-light);
+  --color-linus-primary-dark: var(--linus-primary-dark);
+  --color-linus-primary-hover: var(--linus-primary-hover);
+  --color-linus-service: var(--linus-service);
+  --color-linus-service-light: var(--linus-service-light);
+  --color-linus-hero: var(--linus-hero);
   --color-linus-foundation: var(--linus-foundation);
-  --color-linus-light-2: var(--linus-light-2);
+  --color-linus-service-bg: var(--linus-service-bg);
+  --color-linus-primary-dark-bg: var(--linus-primary-dark-bg);
+  --color-linus-primary-dark-border: var(--linus-primary-dark-border);
+  --color-linus-foundation-bg: var(--linus-foundation-bg);
+  --color-linus-foundation-border: var(--linus-foundation-border);
   --background-image-linus-hero-gradient: var(--linus-hero-gradient);
   --color-surface-section-alt: var(--surface-section-alt);
+
+  --color-label-alternative: var(--label-alternative);
+  --color-label-disable: var(--label-disable);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-glass: var(--shadow-glass);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -139,9 +154,37 @@ body {
   font-weight: 600;
   border-radius: var(--radius);
 }
+
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+/* 문의 폼 체크박스: 20×20, 체크 시 배경 버튼색·체크마크 흰색 */
+.contact-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--input);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.contact-checkbox:checked {
+  background-color: var(--linus-primary);
+  border-color: var(--linus-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px;
+}
+
+.contact-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
 }
