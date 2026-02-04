@@ -3,16 +3,144 @@
 :root {
   --font-pretendard: "Pretendard Variable", "Pretendard JP", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
   --radius: 0.625rem;
+  --header-height: 6rem;
+
   --background: #ffffff;
   --foreground: #171717;
   --primary: #171717;
   --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
   --ring: #171717;
+
+  --fill-normal: rgba(112, 115, 124, 0.08);
+  --fill-strong: rgba(112, 115, 124, 0.16);
+  --line-non-opaque-primary: rgba(219, 220, 223, 0.52);
+  --label-neutral: rgba(70, 71, 76, 0.84);
+  --label-regular: #171719;
+  --label-alternative: rgba(70, 71, 76, 0.68);
+  --label-disable: rgba(70, 71, 76, 0.2);
+
+  --linus-white: #ffffff;
+  --linus-primary: #97C11F;
+  --linus-primary-light: #EDFFC8;
+  --linus-primary-dark: #007E00;
+  --linus-primary-hover: #31C11F;
+  --linus-service: #7DAF31;
+  --linus-service-light: #E7F1D3;
+  --linus-hero: #52924E;
+  --linus-foundation: #946707;
+
+  --linus-service-bg: rgba(125, 175, 49, 0.12);
+  --linus-primary-dark-bg: rgba(0, 126, 0, 0.12);
+  --linus-primary-dark-border: rgba(0, 126, 0, 0.3);
+  --linus-foundation-bg: rgba(148, 103, 7, 0.12);
+  --linus-foundation-border: rgba(148, 103, 7, 0.3);
+
+  --linus-hero-gradient: linear-gradient(180deg, var(--linus-white) 28%, var(--linus-primary) 80%, var(--linus-hero) 100%);
+  --surface-section-alt: #FBFBFB;
+
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-glass: inset 0 1px 6px 0 rgba(255, 255, 255, 0.08), 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: calc(var(--radius) + 2px);
+
+  --color-fill-normal: var(--fill-normal);
+  --color-fill-strong: var(--fill-strong);
+  --color-line-non-opaque-primary: var(--line-non-opaque-primary);
+  --color-label-regular: var(--label-regular);
+  --color-label-neutral: var(--label-neutral);
+
+  --color-linus-white: var(--linus-white);
+  --color-linus-primary: var(--linus-primary);
+  --color-linus-primary-light: var(--linus-primary-light);
+  --color-linus-primary-dark: var(--linus-primary-dark);
+  --color-linus-primary-hover: var(--linus-primary-hover);
+  --color-linus-service: var(--linus-service);
+  --color-linus-service-light: var(--linus-service-light);
+  --color-linus-hero: var(--linus-hero);
+  --color-linus-foundation: var(--linus-foundation);
+  --color-linus-service-bg: var(--linus-service-bg);
+  --color-linus-primary-dark-bg: var(--linus-primary-dark-bg);
+  --color-linus-primary-dark-border: var(--linus-primary-dark-border);
+  --color-linus-foundation-bg: var(--linus-foundation-bg);
+  --color-linus-foundation-border: var(--linus-foundation-border);
+  --background-image-linus-hero-gradient: var(--linus-hero-gradient);
+  --color-surface-section-alt: var(--surface-section-alt);
+
+  --color-label-alternative: var(--label-alternative);
+  --color-label-disable: var(--label-disable);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-glass: var(--shadow-glass);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #fafafa;
+    --primary-foreground: #171717;
+    --secondary: #262626;
+    --secondary-foreground: #fafafa;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --accent: #262626;
+    --accent-foreground: #fafafa;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #fafafa;
+    --border: #262626;
+    --input: #262626;
+    --ring: #d4d4d4;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-pretendard);
+}
+
+[data-slot="card"],
+[data-slot="card-header"],
+[data-slot="card-title"],
+[data-slot="card-content"],
+[data-slot="card-description"] {
   font-family: var(--font-pretendard);
 }
 
@@ -26,9 +154,36 @@ body {
   font-weight: 600;
   border-radius: var(--radius);
 }
+
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
   outline: 2px solid var(--ring);
   outline-offset: 2px;
+}
+
+/* 문의 폼 체크박스: 20×20, 체크 시 배경 버튼색·체크마크 흰색 (전환 없이 즉시 반영) */
+.contact-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--input);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.contact-checkbox:checked {
+  background-color: var(--linus-primary);
+  border-color: var(--linus-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px;
+}
+
+.contact-checkbox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
 }
