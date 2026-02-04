@@ -10,11 +10,11 @@ import { ContactForm } from "./ContactForm";
 export function ContactSection() {
   return (
     <Container maxWidth="xl" className={sectionContent}>
-      <div className="flex gap-[15%] justify-between w-full py-20">
-        <div className="flex flex-col gap-15 w-1/2">
-          <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-10 w-full py-10 md:py-20 lg:flex-row lg:gap-[10%] lg:justify-between">
+        <div className="flex flex-col gap-8 w-full lg:w-1/2 lg:gap-15">
+          <div className="flex flex-col gap-4 md:gap-6">
             <SectionTitle id="together-heading" title="와 함께" justify="start" />
-            <div className="text-[18px] font-semibold text-label-alternative">
+            <div className="text-base md:text-[18px] font-semibold text-label-alternative">
               <p>궁금한 내용을 편하게 알려주세요.</p>
               <p>담당자가 빠르게 연락드릴게요.</p>
             </div>
@@ -26,13 +26,13 @@ export function ContactSection() {
                 card={card}
                 showLearnMoreButton
                 learnMoreHref={card.learnMoreHref}
-                logoCardClassName="bg-secondary py-5 px-10"
+                logoCardClassName="bg-secondary py-4 px-6 md:py-5 md:px-10"
                 contentJustify="start"
               />
             ))}
           </div>
         </div>
-        <div className="w-1/2">
+        <div className="w-full lg:w-1/2">
           <ContactForm />
         </div>
       </div>

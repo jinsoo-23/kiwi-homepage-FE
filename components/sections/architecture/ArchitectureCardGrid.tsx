@@ -11,7 +11,7 @@ type ArchitectureCardGridProps = {
 
 export function ArchitectureCardGrid({
   cards,
-  cols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+  cols = "grid-cols-1 sm:grid-cols-2 xl:grid-cols-4",
   cardClassName,
   titleClassName,
 }: ArchitectureCardGridProps) {

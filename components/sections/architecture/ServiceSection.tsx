@@ -89,7 +89,7 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
           <TabsContent value="platform" className="mt-0">
             <ArchitectureCardGrid
               cards={PLATFORM_CARDS}
-              cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+              cols="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
               cardClassName={cardClassNameByTab.platform}
               titleClassName={titleClassNameByTab.platform}
             />

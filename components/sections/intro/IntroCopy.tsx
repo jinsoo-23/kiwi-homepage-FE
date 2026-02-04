@@ -2,7 +2,7 @@ import { Box } from "@/components/ui/Box";
 
 export function IntroCopy() {
   return (
-    <Box className="text-[28px] font-semibold text-label-neutral">
+    <Box className="text-base md:text-xl lg:text-[28px] font-semibold text-label-neutral leading-relaxed">
       <p>
         학습을 넘어 모든 구성원 간 공감대 및 소속감 형성을 촉진하기 위한 학습경험플랫폼을
         제공합니다.{" "}
