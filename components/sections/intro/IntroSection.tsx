@@ -4,7 +4,7 @@ import { IntroHeadline } from "./IntroHeadline";
 
 export function IntroSection() {
   return (
-    <Box as="section" aria-labelledby="intro-heading">
+    <Box as="section" aria-labelledby="intro-heading" className="relative py-[120px]">
       <IntroHeadline />
       <IntroCopy />
     </Box>
