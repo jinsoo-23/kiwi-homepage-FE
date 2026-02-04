@@ -15,11 +15,11 @@ export const pillButton = {
 
 export const header = {
   root: cn(
-    "flex justify-between items-center w-full my-5 mx-auto py-3",
+    "flex justify-between items-center w-full my-5 mx-auto px-5 py-3",
     "max-w-full md:max-w-[768px] md:px-6 lg:max-w-[1440px] lg:px-8",
     glassPill
   ),
-  overlay: "sticky top-5 left-0 right-0 z-50 w-full px-4 md:px-6 lg:px-8",
+  overlay: "sticky top-5 left-0 right-0 z-50 w-full px-7 md:px-6 lg:px-8",
 } as const;
 
 /** 풀 너비 회색 섹션 (아키텍처·든든한 동료들 등) */
@@ -31,17 +31,17 @@ export const sectionAlt = cn(
 
 /** 섹션 내부 콘텐츠 컨테이너 (max-w + 패딩) */
 export const sectionContent = cn(
-  "flex flex-col gap-[80px] items-center w-full",
-  "px-4 sm:px-6 lg:px-8"
+  "flex flex-col gap-[48px] md:gap-[80px] items-center w-full",
+  "px-7 sm:px-6 lg:px-8"
 );
 
 /** 히어로 CTA: 더 알아보기 버튼 (초록) */
 export const heroCta = {
   learnMore:
-    "w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary-hover text-linus-white hover:bg-linus-primary-dark",
+    "w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary text-linus-white hover:bg-linus-primary-dark",
   brochure: cn(
     "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[100px] w-[108px] px-4 py-2 text-sm font-medium transition-colors",
-    "bg-white text-linus-primary-hover border border-linus-primary-hover",
+    "bg-white text-linus-primary border border-linus-primary",
     "hover:bg-linus-primary-light hover:text-linus-primary-dark hover:border-linus-primary-dark",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
   ),

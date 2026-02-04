@@ -20,7 +20,7 @@ export function ArchitectureCard({
   titleClassName,
 }: ArchitectureCardProps) {
   return (
-    <Card className={cardClassName}>
+    <Card className={cn("h-full text-center", cardClassName)}>
       <CardHeader className="pb-2">
         <CardTitle className={titleClassName}>{card.title}</CardTitle>
       </CardHeader>

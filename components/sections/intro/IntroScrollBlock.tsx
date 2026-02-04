@@ -19,11 +19,20 @@ export function IntroScrollBlock() {
       ref={blockRef}
       className="relative w-screen left-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden"
     >
-      {/* 이미지: 헤드라인 위치에서 시작, 스크롤 시 아래로 내려감 */}
+      {/* 모바일 이미지 */}
       <div
-        className="absolute left-0 right-0 z-0 h-[150vh] w-full bg-cover bg-top bg-no-repeat pointer-events-none transition-transform duration-500 ease-out will-change-transform opacity-50"
+        className="absolute left-0 right-0 z-0 h-[150vh] w-full bg-contain bg-top bg-no-repeat pointer-events-none transition-transform duration-500 ease-out will-change-transform opacity-30 md:hidden"
         style={{
           top: `${initialTop ?? 0}px`,
+          backgroundImage: "url(/intro-mobile.svg)",
+          transform: `translateY(${translateY}vh)`,
+        }}
+      />
+      {/* 데스크탑 이미지 */}
+      <div
+        className="absolute left-0 right-0 z-0 h-[150vh] w-full bg-cover bg-top bg-no-repeat pointer-events-none transition-transform duration-500 ease-out will-change-transform opacity-30 hidden md:block"
+        style={{
+          top: `${(initialTop ?? 0) - 100}px`,
           backgroundImage: "url(/intro.svg)",
           transform: `translateY(${translateY}vh)`,
         }}

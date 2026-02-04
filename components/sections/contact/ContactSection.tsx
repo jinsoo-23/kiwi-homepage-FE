@@ -10,30 +10,31 @@ import { ContactForm } from "./ContactForm";
 export function ContactSection() {
   return (
     <Container maxWidth="xl" className={sectionContent}>
-      <div className="flex flex-col gap-10 w-full py-10 md:py-20 lg:flex-row lg:gap-[10%] lg:justify-between">
-        <div className="flex flex-col gap-8 w-full lg:w-1/2 lg:gap-15">
-          <div className="flex flex-col gap-4 md:gap-6">
-            <SectionTitle id="together-heading" title="와 함께" justify="start" />
-            <div className="text-base md:text-[18px] font-semibold text-label-alternative">
-              <p>궁금한 내용을 편하게 알려주세요.</p>
-              <p>담당자가 빠르게 연락드릴게요.</p>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            {TOGETHER_PARTNER_CARDS.map((card) => (
-              <PartnerCard
-                key={card.title}
-                card={card}
-                showLearnMoreButton
-                learnMoreHref={card.learnMoreHref}
-                logoCardClassName="bg-secondary py-4 px-6 md:py-5 md:px-10"
-                contentJustify="start"
-              />
-            ))}
+      <div className="grid grid-cols-1 gap-8 w-full py-10 md:py-20 lg:grid-cols-2 lg:gap-x-[10%] lg:gap-y-8">
+        {/* 타이틀 + 설명: 모바일 1번째, 데스크탑 왼쪽 상단 */}
+        <div className="flex flex-col gap-4 md:gap-6 order-1 lg:order-none lg:col-start-1 lg:row-start-1">
+          <SectionTitle id="together-heading" particle="와" title="함께" align="left" />
+          <div className="text-base md:text-[18px] font-semibold text-label-alternative">
+            <p>궁금한 내용을 편하게 알려주세요.</p>
+            <p>담당자가 빠르게 연락드릴게요.</p>
           </div>
         </div>
-        <div className="w-full lg:w-1/2">
+        {/* 폼: 모바일 2번째, 데스크탑 오른쪽 (2행 차지) */}
+        <div className="order-2 lg:order-none lg:col-start-2 lg:row-start-1 lg:row-span-2">
           <ContactForm />
+        </div>
+        {/* 파트너 카드: 모바일 3번째, 데스크탑 왼쪽 하단 */}
+        <div className="flex flex-col gap-4 order-3 lg:order-none lg:col-start-1 lg:row-start-2">
+          {TOGETHER_PARTNER_CARDS.map((card) => (
+            <PartnerCard
+              key={card.title}
+              card={card}
+              showLearnMoreButton
+              learnMoreHref={card.learnMoreHref}
+              logoCardClassName="bg-secondary py-4 px-6 md:py-5 md:px-10"
+              contentJustify="start"
+            />
+          ))}
         </div>
       </div>
     </Container>
