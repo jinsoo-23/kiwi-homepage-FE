@@ -38,7 +38,7 @@ export const sectionContent = cn(
 /** 히어로 CTA: 더 알아보기 버튼 (초록) */
 export const heroCta = {
   learnMore:
-    "w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary-hover text-white hover:bg-linus-primary-dark",
+    "w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary-hover text-linus-white hover:bg-linus-primary-dark",
   brochure: cn(
     "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[100px] w-[108px] px-4 py-2 text-sm font-medium transition-colors",
     "bg-white text-linus-primary-hover border border-linus-primary-hover",

@@ -162,7 +162,7 @@ body {
   outline-offset: 2px;
 }
 
-/* 문의 폼 체크박스: 20×20, 체크 시 배경 버튼색·체크마크 흰색 */
+/* 문의 폼 체크박스: 20×20, 체크 시 배경 버튼색·체크마크 흰색 (전환 없이 즉시 반영) */
 .contact-checkbox {
   appearance: none;
   -webkit-appearance: none;
@@ -172,7 +172,6 @@ body {
   border-radius: 0.25rem;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background-color 0.15s, border-color 0.15s;
 }
 
 .contact-checkbox:checked {
