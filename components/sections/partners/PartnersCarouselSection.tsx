@@ -58,7 +58,7 @@ export function PartnersCarouselSection() {
         >
           {PARTNER_CARDS.map((card) => (
             <SwiperSlide key={card.title} className="!h-auto">
-              <PartnerCard card={card} />
+              <PartnerCard card={card} showDescription />
             </SwiperSlide>
           ))}
         </Swiper>

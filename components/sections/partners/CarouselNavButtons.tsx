@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import { Stack } from "@/components/ui/Stack";
+import { ArrowIcon } from "@/components/ui/ArrowIcon";
 
 type CarouselNavButtonsProps = {
   onPrev: () => void;
@@ -19,11 +19,8 @@ export function CarouselNavButtons({
   isEnd,
   className,
 }: CarouselNavButtonsProps) {
-  const buttonStyle = {
-    background: "var(--fill-strong)",
-  };
   const buttonClassName = cn(
-    "rounded-[100px] p-2.5 flex items-center justify-center transition-colors flex-shrink-0 cursor-pointer",
+    "rounded-[100px] p-2.5 flex items-center justify-center transition-colors flex-shrink-0 cursor-pointer bg-fill-strong",
     "hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
   );
 
@@ -40,26 +37,18 @@ export function CarouselNavButtons({
         onClick={onPrev}
         aria-label="이전"
         disabled={isBeginning}
-        style={buttonStyle}
         className={buttonClassName}
       >
-        <Image
-          src="/icon/arrow.svg"
-          alt=""
-          width={20}
-          height={20}
-          className="rotate-180"
-        />
+        <ArrowIcon width={20} height={20} className="rotate-180" />
       </button>
       <button
         type="button"
         onClick={onNext}
         aria-label="다음"
         disabled={isEnd}
-        style={buttonStyle}
         className={buttonClassName}
       >
-        <Image src="/icon/arrow.svg" alt="" width={20} height={20} />
+        <ArrowIcon width={20} height={20} />
       </button>
     </Stack>
   );
