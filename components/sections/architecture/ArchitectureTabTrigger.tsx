@@ -4,8 +4,9 @@ import { cn } from "@/lib/utils";
 
 const tabTriggerBase = cn(
   "flex-none shrink-0 after:!opacity-0 whitespace-nowrap",
-  "rounded-[8px] h-[54px] items-center justify-center px-6 border-2 border-transparent text-center",
-  "text-[28px] font-bold leading-[135.8%] tracking-[-0.661px]",
+  "rounded-[8px] items-center justify-center py-2 px-4 border-2 border-transparent text-center",
+  "text-sm font-bold leading-[135.8%] tracking-[-0.661px]",
+  "md:h-[54px] md:py-0 md:px-6 md:text-[28px]",
   "[font-feature-settings:'liga'_off,'clig'_off] font-[family-name:var(--font-pretendard)]",
   "text-label-disable"
 );

@@ -4,7 +4,7 @@ import type { PartnerIconVariant } from "@/lib/types";
 
 const PARTNER_ICON_MAP: Record<PartnerIconVariant, string> = {
   canvas: "canvas.svg",
-  ignite_ai: "Ignite_ai.svg",
+  igniteAi: "ignite-ai.svg",
   panopto: "panopto.svg",
   zoom: "zoom.svg",
   slack: "slack.svg",
@@ -17,7 +17,7 @@ export type { PartnerIconVariant };
 
 export const PARTNER_ICON_VARIANTS: PartnerIconVariant[] = [
   "canvas",
-  "ignite_ai",
+  "igniteAi",
   "panopto",
   "zoom",
   "slack",
@@ -42,7 +42,7 @@ function PartnerIcon({
   height = 40,
 }: PartnerIconProps) {
   const filename = PARTNER_ICON_MAP[icon];
-  const src = `/partner/${encodeURIComponent(filename)}`;
+  const src = `/logos/${encodeURIComponent(filename)}`;
 
   return (
     <Image

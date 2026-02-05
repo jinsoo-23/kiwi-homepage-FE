@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/Tabs";
 import {
   type TabValue,
@@ -10,8 +10,9 @@ import {
 } from "@/lib/data/architecture";
 import { cn } from "@/lib/utils";
 import { Box } from "@/components/ui/Box";
-import { ArchitectureCardGrid } from "./ArchitectureCardGrid";
+import { ArchitectureCardGrid, type NavState } from "./ArchitectureCardGrid";
 import { ArchitectureTabTrigger } from "./ArchitectureTabTrigger";
+import { CarouselNavButtons } from "../partners/CarouselNavButtons";
 
 const boxBorderByTab: Record<TabValue, string> = {
   service: "border-linus-service",
@@ -47,43 +48,63 @@ type ServiceSectionProps = {
 
 export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSectionProps) {
   const [activeTab, setActiveTab] = useState<TabValue>("service");
+  const [navStates, setNavStates] = useState<Record<TabValue, NavState>>({
+    service: { goPrev: () => { }, goNext: () => { }, isBeginning: true, isEnd: false },
+    platform: { goPrev: () => { }, goNext: () => { }, isBeginning: true, isEnd: false },
+    foundation: { goPrev: () => { }, goNext: () => { }, isBeginning: true, isEnd: false },
+  });
+
+  const handleServiceNavChange = useCallback((state: NavState) => {
+    setNavStates((prev) => ({ ...prev, service: state }));
+  }, []);
+
+  const handlePlatformNavChange = useCallback((state: NavState) => {
+    setNavStates((prev) => ({ ...prev, platform: state }));
+  }, []);
+
+  const handleFoundationNavChange = useCallback((state: NavState) => {
+    setNavStates((prev) => ({ ...prev, foundation: state }));
+  }, []);
+
+  const activeNavState = navStates[activeTab];
 
   return (
     <Box
       as="section"
-      className="w-full px-4 md:px-6 lg:px-8"
+      className="w-full px-0 md:px-6 lg:px-8"
       aria-labelledby={ariaLabelledBy}
     >
-      <Box
-        className={cn(
-          "rounded-2xl border-2 p-6 lg:p-8 bg-white/50",
-          boxBorderByTab[activeTab]
-        )}
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setActiveTab(v as TabValue)}
+        className="w-full gap-3 md:gap-2"
       >
-        <Tabs
-          value={activeTab}
-          onValueChange={(v) => setActiveTab(v as TabValue)}
-          className="w-full"
+        <TabsList
+          variant="line"
+          className="w-fit h-auto gap-0 md:gap-6 bg-transparent p-0 border-b-0 mb-0 md:mb-4 mx-auto"
         >
-          <TabsList
-            variant="line"
-            className="w-fit h-auto gap-6 bg-transparent p-0 border-b-0 mb-6"
-          >
-            <ArchitectureTabTrigger value="service">
-              Service
-            </ArchitectureTabTrigger>
-            <ArchitectureTabTrigger value="platform">
-              Platform
-            </ArchitectureTabTrigger>
-            <ArchitectureTabTrigger value="foundation">
-              Foundation
-            </ArchitectureTabTrigger>
-          </TabsList>
+          <ArchitectureTabTrigger value="service">
+            Service
+          </ArchitectureTabTrigger>
+          <ArchitectureTabTrigger value="platform">
+            Platform
+          </ArchitectureTabTrigger>
+          <ArchitectureTabTrigger value="foundation">
+            Foundation
+          </ArchitectureTabTrigger>
+        </TabsList>
+        <Box
+          className={cn(
+            "rounded-2xl border-2 p-6 lg:p-8 bg-white/50",
+            boxBorderByTab[activeTab]
+          )}
+        >
           <TabsContent value="service" className="mt-0">
             <ArchitectureCardGrid
               cards={SERVICE_CARDS}
               cardClassName={cardClassNameByTab.service}
               titleClassName={titleClassNameByTab.service}
+              onNavStateChange={handleServiceNavChange}
             />
           </TabsContent>
           <TabsContent value="platform" className="mt-0">
@@ -92,6 +113,8 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
               cols="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
               cardClassName={cardClassNameByTab.platform}
               titleClassName={titleClassNameByTab.platform}
+              onNavStateChange={handlePlatformNavChange}
+              slidesPerView={1}
             />
           </TabsContent>
           <TabsContent value="foundation" className="mt-0">
@@ -99,10 +122,18 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
               cards={FOUNDATION_CARDS}
               cardClassName={cardClassNameByTab.foundation}
               titleClassName={titleClassNameByTab.foundation}
+              onNavStateChange={handleFoundationNavChange}
             />
           </TabsContent>
-        </Tabs>
-      </Box>
+        </Box>
+        <CarouselNavButtons
+          onPrev={activeNavState.goPrev}
+          onNext={activeNavState.goNext}
+          isBeginning={activeNavState.isBeginning}
+          isEnd={activeNavState.isEnd}
+          className="sm:hidden"
+        />
+      </Tabs>
     </Box>
   );
 }

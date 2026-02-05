@@ -10,11 +10,13 @@ import { PARTNER_CARDS } from "@/lib/data/partners";
 import { Box } from "@/components/ui/Box";
 import { CarouselNavButtons } from "./CarouselNavButtons";
 import { PartnerCard } from "./PartnerCard";
+import { cn } from "@/lib/utils";
 
 export function PartnersCarouselSection() {
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [isSwiperReady, setIsSwiperReady] = useState(false);
 
   const goPrev = useCallback(() => {
     swiperRef.current?.slidePrev();
@@ -34,7 +36,7 @@ export function PartnersCarouselSection() {
     <Box
       as="section"
       aria-label="파트너 로고 캐러셀"
-      className="w-full max-w-[1440px] mx-auto overflow-hidden"
+      className="w-full max-w-[1440px] mx-auto"
     >
       <Box className="relative">
         <Swiper
@@ -42,6 +44,7 @@ export function PartnersCarouselSection() {
             swiperRef.current = swiper;
             setIsBeginning(swiper.isBeginning);
             setIsEnd(swiper.isEnd);
+            setIsSwiperReady(true);
           }}
           onSlideChange={updateNavState}
           modules={[Navigation]}
@@ -53,7 +56,10 @@ export function PartnersCarouselSection() {
             1024: { slidesPerView: 3.2 },
             1280: { slidesPerView: 4.5 },
           }}
-          className="!overflow-visible"
+          className={cn(
+            "!overflow-visible transition-opacity duration-200",
+            isSwiperReady ? "opacity-100" : "opacity-0"
+          )}
           grabCursor
         >
           {PARTNER_CARDS.map((card) => (
@@ -62,13 +68,13 @@ export function PartnersCarouselSection() {
             </SwiperSlide>
           ))}
         </Swiper>
-        <CarouselNavButtons
-          onPrev={goPrev}
-          onNext={goNext}
-          isBeginning={isBeginning}
-          isEnd={isEnd}
-        />
       </Box>
+      <CarouselNavButtons
+        onPrev={goPrev}
+        onNext={goNext}
+        isBeginning={isBeginning}
+        isEnd={isEnd}
+      />
     </Box>
   );
 }

@@ -9,7 +9,7 @@ export type ArchitectureCard = {
 // Partner types
 export type PartnerIconVariant =
   | "canvas"
-  | "ignite_ai"
+  | "igniteAi"
   | "panopto"
   | "zoom"
   | "slack"

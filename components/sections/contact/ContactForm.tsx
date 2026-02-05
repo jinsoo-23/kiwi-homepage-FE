@@ -2,7 +2,7 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactFormSchema, type ContactFormValues } from "./contact-form-schema";
+import { contactFormSchema, type ContactFormValues } from "./contactFormSchema";
 import { Button } from "@/components/ui/Button";
 import {
   Select,
@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import { COUNTRY_CODES } from "@/lib/data/country-codes";
+import { COUNTRY_CODES } from "@/lib/data/countryCodes";
 import { cn } from "@/lib/utils";
 
 const INQUIRY_TYPES = [
