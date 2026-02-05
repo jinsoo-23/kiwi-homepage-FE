@@ -19,6 +19,8 @@ export function PartnersCarouselSection() {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [isSwiperReady, setIsSwiperReady] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const totalSlides = PARTNER_CARDS.length;
 
   const goPrev = useCallback(() => {
     swiperRef.current?.slidePrev();
@@ -32,6 +34,7 @@ export function PartnersCarouselSection() {
     if (!swiperRef.current) return;
     setIsBeginning(swiperRef.current.isBeginning);
     setIsEnd(swiperRef.current.isEnd);
+    setActiveIndex(swiperRef.current.activeIndex);
   }, []);
 
   return (
@@ -83,6 +86,9 @@ export function PartnersCarouselSection() {
         isBeginning={isBeginning}
         isEnd={isEnd}
       />
+      <span className="sr-only" aria-live="polite" aria-atomic="true">
+        {`${activeIndex + 1} / ${totalSlides}`}
+      </span>
     </Box>
   );
 }

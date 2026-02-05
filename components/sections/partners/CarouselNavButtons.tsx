@@ -21,7 +21,8 @@ export function CarouselNavButtons({
 }: CarouselNavButtonsProps) {
   const buttonClassName = cn(
     "rounded-[100px] p-2.5 flex items-center justify-center transition-colors flex-shrink-0 cursor-pointer bg-fill-strong",
-    "hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed"
+    "hover:opacity-80 disabled:opacity-40 disabled:cursor-not-allowed",
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
   );
 
   return (
