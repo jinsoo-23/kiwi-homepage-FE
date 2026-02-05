@@ -26,7 +26,7 @@ export function ArchitectureCard({
         <CardTitle className={titleClassName}>{title}</CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
-        <CardDescription className={cn("text-[20px] text-label-regular whitespace-pre-line")}>
+        <CardDescription className={cn("text-[14px] md:text-[20px] text-label-regular whitespace-pre-line")}>
           {description}
         </CardDescription>
       </CardContent>
