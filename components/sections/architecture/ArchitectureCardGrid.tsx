@@ -1,13 +1,14 @@
 "use client";
 
 import { useRef, useCallback, useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Grid as SwiperGrid } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/grid";
-import type { ArchitectureCard as ArchitectureCardType } from "@/lib/data/architecture";
+import type { ArchitectureCardId, TabValue } from "@/lib/types";
 import { Grid } from "@/components/ui/Grid";
 import { Box } from "@/components/ui/Box";
 import { ArchitectureCard } from "./ArchitectureCard";
@@ -21,7 +22,8 @@ export type NavState = {
 };
 
 type ArchitectureCardGridProps = {
-  cards: readonly ArchitectureCardType[];
+  cardIds: readonly ArchitectureCardId[];
+  tabKey: TabValue;
   cols?: string;
   cardClassName?: string;
   titleClassName?: string;
@@ -30,13 +32,15 @@ type ArchitectureCardGridProps = {
 };
 
 export function ArchitectureCardGrid({
-  cards,
+  cardIds,
+  tabKey,
   cols = "grid-cols-1 sm:grid-cols-2 xl:grid-cols-4",
   cardClassName,
   titleClassName,
   onNavStateChange,
   slidesPerView = 1.2,
 }: ArchitectureCardGridProps) {
+  const t = useTranslations("architecture");
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -86,10 +90,11 @@ export function ArchitectureCardGrid({
           )}
           grabCursor
         >
-          {cards.map((card) => (
-            <SwiperSlide key={card.title}>
+          {cardIds.map((id) => (
+            <SwiperSlide key={id}>
               <ArchitectureCard
-                card={card}
+                title={t(`${tabKey}.${id}.title`)}
+                description={t(`${tabKey}.${id}.description`)}
                 cardClassName={cardClassName}
                 titleClassName={titleClassName}
               />
@@ -101,10 +106,11 @@ export function ArchitectureCardGrid({
       {/* 태블릿/데스크탑: Grid */}
       <Box className="hidden sm:block">
         <Grid cols={cols} gap={4}>
-          {cards.map((card) => (
+          {cardIds.map((id) => (
             <ArchitectureCard
-              key={card.title}
-              card={card}
+              key={id}
+              title={t(`${tabKey}.${id}.title`)}
+              description={t(`${tabKey}.${id}.description`)}
               cardClassName={cardClassName}
               titleClassName={titleClassName}
             />

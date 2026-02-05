@@ -12,6 +12,8 @@ type SectionTitleProps = {
   mdAlign?: "left" | "center" | "right";
   /** 모바일에서 두 줄로 표시 (기본: false) */
   mobileBreak?: boolean;
+  /** 타이틀을 앞에 배치 (영어 등에서 "Together with kiwi" 형태로 표시) */
+  titleFirst?: boolean;
 };
 
 export function SectionTitle({
@@ -21,6 +23,7 @@ export function SectionTitle({
   align = "center",
   mdAlign,
   mobileBreak = false,
+  titleFirst = false,
 }: SectionTitleProps) {
   const alignClassMap = {
     left: "justify-start",
@@ -41,18 +44,32 @@ export function SectionTitle({
     ? "flex flex-col md:flex-row md:flex-wrap"
     : "flex flex-row flex-wrap";
 
+  const logoWithParticle = (
+    <span className="inline-flex items-center whitespace-nowrap">
+      {titleFirst && <span className="mr-1">{particle}</span>}
+      <KiwiLogo
+        width={120}
+        height={36}
+        className="w-[90px] h-[27px] md:w-[100px] md:h-[30px] lg:w-[120px] lg:h-[36px]"
+        alt=""
+      />
+      {!titleFirst && <span>{particle}</span>}
+    </span>
+  );
+
   return (
     <h2 id={id} className={`text-[32px] md:text-[32px] lg:text-[40px] font-bold w-full ${flexClass} items-center gap-2 ${alignClass} ${mdAlignClass}`}>
-      <span className="inline-flex items-center whitespace-nowrap">
-        <KiwiLogo
-          width={120}
-          height={36}
-          className="w-[90px] h-[27px] md:w-[100px] md:h-[30px] lg:w-[120px] lg:h-[36px]"
-          alt=""
-        />
-        <span>{particle}</span>
-      </span>
-      <span>{title}</span>
+      {titleFirst ? (
+        <>
+          <span>{title}</span>
+          {logoWithParticle}
+        </>
+      ) : (
+        <>
+          {logoWithParticle}
+          <span>{title}</span>
+        </>
+      )}
     </h2>
   );
 }

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 type ContainerProps = {
   id?: string;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  maxWidth?: "sm" | "md" | "lg" | "xl" | "full";
   className?: string;
   children?: React.ReactNode;
 };
@@ -13,7 +13,6 @@ const maxWidthMap = {
   md: "max-w-[768px]",
   lg: "max-w-[1024px]",
   xl: "max-w-[1440px]",
-  "2xl": "max-w-[1920px]",
   full: "max-w-full",
 } as const;
 

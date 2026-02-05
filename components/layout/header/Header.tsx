@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 import { KiwiLogo } from "@/components/ui/KiwiLogo";
-import { LocaleIcon } from "@/components/ui/LocaleIcon";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { Stack } from "@/components/ui/Stack";
 import { header } from "@/lib/uiPatterns";
 
@@ -12,15 +11,7 @@ export function Header() {
         <Link href="/" aria-label="키위 홈" className="flex items-center">
           <KiwiLogo width={80} height={24} />
         </Link>
-        <Button
-          variant="locale"
-          size="locale"
-          className="gap-2"
-          aria-label="언어 선택: 한국어"
-        >
-          <LocaleIcon width={16} height={16} className="size-4" />
-          <span>KO</span>
-        </Button>
+        <LanguageSwitcher />
       </Stack>
     </header>
   );

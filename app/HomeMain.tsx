@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import {
   HeroSection,
   IntroScrollBlock,
@@ -8,7 +9,11 @@ import {
 } from "@/components/sections";
 import { Container, SectionAlt } from "@/components/ui";
 import { sectionContent } from "@/lib/uiPatterns";
-export function HomeMain() {
+
+export async function HomeMain() {
+  const tArch = await getTranslations("architecture");
+  const tPartners = await getTranslations("partners");
+
   return (
     <>
       <HeroSection />
@@ -19,12 +24,12 @@ export function HomeMain() {
       >
         <IntroScrollBlock />
 
-        <SectionAlt aria-label="아키텍처 및 파트너">
+        <SectionAlt aria-label={tArch("sectionLabel")}>
           <Container maxWidth="xl" className={sectionContent}>
             <SectionTitle
               id="architecture-heading"
-              particle="의"
-              title="견고한 아키텍처"
+              particle={tArch("particle")}
+              title={tArch("sectionTitle")}
               mobileBreak
             />
             <ServiceSection aria-labelledby="architecture-heading" />
@@ -32,8 +37,8 @@ export function HomeMain() {
           <Container maxWidth="xl" className={sectionContent}>
             <SectionTitle
               id="partners-heading"
-              particle="의"
-              title="든든한 동료들"
+              particle={tPartners("particle")}
+              title={tPartners("sectionTitle")}
               mdAlign="left"
             />
             <PartnersCarouselSection />

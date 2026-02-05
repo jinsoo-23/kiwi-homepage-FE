@@ -38,9 +38,9 @@ export const sectionContent = cn(
 /** 히어로 CTA: 더 알아보기 버튼 (초록) */
 export const heroCta = {
   learnMore:
-    "w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary text-linus-white hover:bg-linus-primary-dark",
+    "w-fit min-w-[108px] px-4 py-2 rounded-[100px] bg-linus-primary text-linus-white hover:bg-linus-primary-dark",
   brochure: cn(
-    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[100px] w-[108px] px-4 py-2 text-sm font-medium transition-colors",
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[100px] w-fit min-w-[108px] px-4 py-2 text-sm font-medium transition-colors",
     "bg-white text-linus-primary border border-linus-primary",
     "hover:bg-linus-primary-light hover:text-linus-primary-dark hover:border-linus-primary-dark",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

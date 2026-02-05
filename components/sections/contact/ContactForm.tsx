@@ -2,6 +2,7 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { contactFormSchema, type ContactFormValues } from "./contactFormSchema";
 import { Button } from "@/components/ui/Button";
 import {
@@ -14,16 +15,13 @@ import {
 import { COUNTRY_CODES } from "@/lib/data/countryCodes";
 import { cn } from "@/lib/utils";
 
-const INQUIRY_TYPES = [
-  { value: "kiwi", label: "Kiwi 도입 문의" },
-  { value: "kiwi-feature", label: "Kiwi 기능 문의" },
-  { value: "kiwi-partnership", label: "Kiwi 파트너십 문의" },
-] as const;
+const INQUIRY_TYPE_KEYS = ["kiwi", "kiwiFeature", "kiwiPartnership"] as const;
 
 const inputBase =
   "w-full rounded-lg border border-[var(--color-input)] bg-background px-4 py-3 text-sm text-label-regular placeholder:text-label-disable focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] focus:ring-offset-0";
 
 export function ContactForm() {
+  const t = useTranslations("contactForm");
   const {
     register,
     control,
@@ -56,25 +54,25 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-5 rounded-xl border border-[var(--color-border)] bg-white p-6 shadow-[var(--shadow-card)]"
-      aria-label="문의 폼"
+      aria-label={t("formLabel")}
     >
-      <h3 className="sr-only">문의 폼</h3>
+      <h3 className="sr-only">{t("formLabel")}</h3>
 
       {/* 기업/기관 메일 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-email" className="text-sm font-semibold text-label-regular">
-          기업/기관 메일 <span className="text-linus-primary">*</span>
+          {t("email.label")} <span className="text-linus-primary">*</span>
         </label>
         <input
           id="contact-email"
           type="email"
-          placeholder="linus@university.ac.kr"
+          placeholder={t("email.placeholder")}
           className={cn(inputBase, errors.email && "border-destructive")}
           {...register("email")}
         />
         {errors.email && (
           <p className="text-xs text-destructive" role="alert">
-            {errors.email.message}
+            {t("email.invalid")}
           </p>
         )}
       </div>
@@ -82,7 +80,7 @@ export function ContactForm() {
       {/* 휴대폰 번호 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-phone" className="text-sm font-semibold text-label-regular">
-          휴대폰 번호
+          {t("phone.label")}
         </label>
         <div className="flex gap-2">
           <Controller
@@ -127,14 +125,14 @@ export function ContactForm() {
           <input
             id="contact-phone"
             type="tel"
-            placeholder="01012341234"
+            placeholder={t("phone.placeholder")}
             className={cn(inputBase, "h-[46px]", errors.phone && "border-destructive")}
             {...register("phone")}
           />
         </div>
         {errors.phone && (
           <p className="text-xs text-destructive" role="alert">
-            {errors.phone.message}
+            {t("phone.invalid")}
           </p>
         )}
       </div>
@@ -142,7 +140,7 @@ export function ContactForm() {
       {/* 문의 구분 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-inquiry-type" className="text-sm font-semibold text-label-regular">
-          문의 구분
+          {t("inquiryType.label")}
         </label>
         <Controller
           name="inquiryType"
@@ -161,20 +159,20 @@ export function ContactForm() {
                   errors.inquiryType && "border-destructive"
                 )}
               >
-                <SelectValue placeholder="문의 구분을 선택하세요" />
+                <SelectValue placeholder={t("inquiryType.placeholder")} />
               </SelectTrigger>
               <SelectContent
                 className="max-h-[min(var(--radix-select-content-available-height),280px)] rounded-lg border-[var(--color-input)] bg-white py-1 shadow-[var(--shadow-card)]"
                 position="popper"
                 align="start"
               >
-                {INQUIRY_TYPES.map(({ value, label }) => (
+                {INQUIRY_TYPE_KEYS.map((key) => (
                   <SelectItem
-                    key={value}
-                    value={value}
+                    key={key}
+                    value={key}
                     className="cursor-pointer rounded-md px-3 py-2.5 text-sm font-medium text-label-regular focus:bg-[var(--fill-normal)] focus:text-label-regular data-[highlighted]:bg-[var(--fill-normal)] data-[highlighted]:text-label-regular"
                   >
-                    {label}
+                    {t(`inquiryType.options.${key}`)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -191,12 +189,12 @@ export function ContactForm() {
       {/* 문의 내용 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-message" className="text-sm font-semibold text-label-regular">
-          문의 내용
+          {t("inquiryDetails.label")}
         </label>
         <textarea
           id="contact-message"
           rows={8}
-          placeholder="궁금한 내용을 편하게 알려주세요"
+          placeholder={t("inquiryDetails.placeholder")}
           className={cn(inputBase, "resize-none", errors.message && "border-destructive")}
           {...register("message")}
         />
@@ -217,12 +215,12 @@ export function ContactForm() {
             {...register("privacyConsent")}
           />
           <label htmlFor="contact-privacy" className="text-sm font-semibold text-label-regular">
-            [필수] <span className="underline">개인정보 수집 동의</span>
+            {t("privacyConsent.label")}
           </label>
         </div>
         {errors.privacyConsent && (
           <p className="text-xs text-destructive" role="alert">
-            {errors.privacyConsent.message}
+            {t("privacyConsent.required")}
           </p>
         )}
       </div>
@@ -236,7 +234,7 @@ export function ContactForm() {
           {...register("marketingConsent")}
         />
         <label htmlFor="contact-marketing" className="text-sm font-semibold text-label-regular">
-          [선택] <span className="underline">이벤트/프로모션 알림 수신 동의</span>
+          {t("marketingConsent.label")}
         </label>
       </div>
 
@@ -245,7 +243,7 @@ export function ContactForm() {
         disabled={isSubmitting || !isFormFilled}
         className="w-full rounded-[100px] bg-linus-primary py-5 text-[18px] font-extrabold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50 mt-3"
       >
-        제출
+        {t("submit")}
       </Button>
     </form>
   );

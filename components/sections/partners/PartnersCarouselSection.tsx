@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useCallback, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -13,6 +14,7 @@ import { PartnerCard } from "./PartnerCard";
 import { cn } from "@/lib/utils";
 
 export function PartnersCarouselSection() {
+  const t = useTranslations("partners");
   const swiperRef = useRef<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -35,7 +37,7 @@ export function PartnersCarouselSection() {
   return (
     <Box
       as="section"
-      aria-label="파트너 로고 캐러셀"
+      aria-label={t("carouselLabel")}
       className="w-full max-w-[1440px] mx-auto"
     >
       <Box className="relative">
@@ -63,8 +65,14 @@ export function PartnersCarouselSection() {
           grabCursor
         >
           {PARTNER_CARDS.map((card) => (
-            <SwiperSlide key={card.title} className="!h-auto">
-              <PartnerCard card={card} showDescription />
+            <SwiperSlide key={card.id} className="!h-auto">
+              <PartnerCard
+                card={card}
+                title={t(`${card.id}.title`)}
+                description={t(`${card.id}.description`)}
+                descriptionHighlight={t.has(`${card.id}.descriptionHighlight`) ? t(`${card.id}.descriptionHighlight`) : undefined}
+                showDescription
+              />
             </SwiperSlide>
           ))}
         </Swiper>
