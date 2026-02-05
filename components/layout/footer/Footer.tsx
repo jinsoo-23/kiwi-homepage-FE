@@ -2,7 +2,7 @@ import { Container } from "@/components/ui/Container";
 import { FooterCompanyInfo } from "./FooterCompanyInfo";
 import { FooterLegal } from "./FooterLegal";
 
-export function Footer() {
+export async function Footer() {
   return (
     <footer className="bg-label-regular text-linus-white">
       <Container maxWidth="xl" className="px-6 py-10 md:py-10">

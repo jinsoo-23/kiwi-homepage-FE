@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "title": "Kiwi",
+    "description": "자유로운 학습경험 생태계 구축을 위한 플랫폼 Kiwi"
+  },
+  "common": {
+    "skipToContent": "본문 바로가기",
+    "learnMore": "더 알아보기",
+    "brochure": "브로슈어",
+    "downloadBrochure": "소개서 다운로드",
+    "mainVisual": "메인 비주얼",
+    "mainContent": "본문"
+  },
+  "hero": {
+    "tagline": "차세대 학습경험플랫폼",
+    "previewAlt": "키위 플랫폼 미리보기"
+  },
+  "intro": {
+    "headline": "자유로운\n학습경험 생태계\n구축을 위한 플랫폼",
+    "headlineHighlight": "학습경험 생태계",
+    "copy": "학습을 넘어 모든 구성원 간 공감대 및 소속감 형성을 촉진하기 위한 학습경험플랫폼을 제공합니다.\n연결된 학습 경험을 제공하여 자연스러운 교류를 통한 혁신적인 교육 방법과,\n복잡해지는 교육 환경에 맞춘 키위만의 자유롭고 효과적인 관리 솔루션을 제시합니다."
+  },
+  "architecture": {
+    "sectionTitle": "견고한 아키텍처",
+    "particle": "의",
+    "sectionLabel": "아키텍처 및 파트너",
+    "service": {
+      "studentInformationSystem": {
+        "title": "학사관리시스템",
+        "description": "수강신청 · 성적 등\n학사행정 지원"
+      },
+      "learningManagementSystem": {
+        "title": "학습관리시스템",
+        "description": "개별적인 강좌 관리와\n학습 과정 운영 제공"
+      },
+      "contentManagementSystem": {
+        "title": "콘텐츠관리시스템",
+        "description": "학습 자료와 교육 콘텐츠\n저장 · 배포"
+      },
+      "videoProductionSystem": {
+        "title": "영상제작시스템",
+        "description": "교육용 영상 촬영 · 편집 도구,\nAI 영상제작"
+      },
+      "virtualClassroomSystem": {
+        "title": "화상강의시스템",
+        "description": "실시간 온라인 강의 및\n세미나 진행"
+      },
+      "communicationSystem": {
+        "title": "커뮤니케이션시스템",
+        "description": "학습자 · 교수자 간\n메시지 및 알림 전달"
+      },
+      "collaborationSystem": {
+        "title": "협업 시스템",
+        "description": "공동 프로젝트와\n자료 공유 지원"
+      },
+      "studentSuccessSystem": {
+        "title": "학생성공시스템",
+        "description": "맞춤형 상담 · 지원\n(전공설계지원, e포트폴리오)"
+      }
+    },
+    "platform": {
+      "unifiedAuth": {
+        "title": "통합인증 · 권한",
+        "description": "한 번의 로그인으로\n모든 서비스 이용"
+      },
+      "dataIntegrationLayer": {
+        "title": "데이터 통합 레이어",
+        "description": "여러 시스템의 데이터를\n통합 관리"
+      },
+      "apiGateway": {
+        "title": "API Gateway",
+        "description": "다양한 서비스와 데이터를\n안전하게 연결하는 통로"
+      },
+      "learningAnalyticsSystem": {
+        "title": "학습분석시스템",
+        "description": "학습 데이터를 분석해\n개인화 추천과 성과 예측"
+      }
+    },
+    "foundation": {
+      "learningHistoryRepository": {
+        "title": "학습이력 저장소",
+        "description": "학습분석을 위한 데이터를\n표준화하여 저장 · 관리"
+      },
+      "featureStore": {
+        "title": "Feature Store",
+        "description": "AI 분석에 필요한\n데이터 특성을 저장 · 공유"
+      },
+      "knowledgeGraphEngine": {
+        "title": "지식그래프 엔진",
+        "description": "사용자 · 과목 · 자료 간의\n관계망 기반 검색 · 추천 · 추론"
+      },
+      "llmServing": {
+        "title": "대규모언어모델 서빙",
+        "description": "인공지능 대규모언어모델을\n실시간으로 활용"
+      },
+      "ragStack": {
+        "title": "RAG 스택",
+        "description": "지식검색과 AI 답변의\n정확도를 높이는 기술"
+      },
+      "multimodalAiEngine": {
+        "title": "멀티모달 AI 엔진",
+        "description": "텍스트 · 음성 · 이미지 · 영상 등\n다양한 데이터를 통합 활용"
+      },
+      "mlops": {
+        "title": "MLOps",
+        "description": "AI 모델 개발 · 배포\n모니터링 자동화"
+      },
+      "analyticsMart": {
+        "title": "Analytics Mart",
+        "description": "KPI와 지표를 집계해\n의사결정 지원"
+      }
+    }
+  },
+  "partners": {
+    "sectionTitle": "든든한 동료들",
+    "particle": "의",
+    "carouselLabel": "파트너 로고 캐러셀",
+    "canvas": {
+      "title": "Canvas By Instructure",
+      "description": "전 세계 수천 개의 대학교와 교육기관이 사용하는 글로벌 대표 LMS로, 국내 유일 라이선스 버전 공식 파트너를 통해 안정적인 운영 환경과 전문 기술 지원을 함께 제공합니다.",
+      "descriptionHighlight": "국내 유일 라이선스 버전 공식 파트너"
+    },
+    "igniteAi": {
+      "title": "Canvas IgniteAI",
+      "description": "Instructure사가 OpenAI 기술을 기반으로 공동 설계한 교육 특화 AI로, 과제 · 퀴즈 · 루브릭 생성부터 토론 요약까지 학습 운영 전반을 지능적으로 지원합니다."
+    },
+    "panopto": {
+      "title": "Panopto CMS",
+      "description": "글로벌 대학교와 기업에서 사용하는 학습영상 관리 플랫폼으로, 강의 자동 녹화와 검색 기능을 통해 지식 자산을 효율적으로 저장 · 활용합니다."
+    },
+    "zoom": {
+      "title": "Zoom",
+      "description": "전 세계 수억 명이 활용하는 화상 커뮤니케이션 서비스로, 원활한 온라인 강의와 회의를 지원합니다."
+    },
+    "slack": {
+      "title": "Slack",
+      "description": "글로벌 기업들이 표준 협업 도구로 채택한 메신저로, 실시간 커뮤니케이션과 파일 공유를 통해 팀워크를 강화합니다."
+    },
+    "notion": {
+      "title": "Notion",
+      "description": "전 세계 수천만 사용자가 쓰는 올인원 워크스페이스로, 문서 · 프로젝트 · 데이터베이스 관리를 하나의 공간에서 할 수 있습니다."
+    },
+    "genwave": {
+      "title": "GenWave",
+      "description": "키워드나 간단한 문장 입력만으로 이미지 · 영상 · 음악 · 텍스트 등 다양한 미디어 콘텐츠를 자동 생성해주는 멀티모달 AI 플랫폼입니다."
+    },
+    "diquest": {
+      "title": "diquest e-Portfolio",
+      "description": "학생 중심의 학사정보 · LMS 종합 설계를 바탕으로 커리어 방향성과 포트폴리오를 제공하는 서비스입니다."
+    }
+  },
+  "contact": {
+    "sectionTitle": "함께",
+    "particle": "와",
+    "description": "궁금한 내용을 편하게 알려주세요.\n담당자가 빠르게 연락드릴게요."
+  },
+  "contactForm": {
+    "formLabel": "문의 폼",
+    "email": {
+      "label": "기업/기관 메일",
+      "placeholder": "linus@university.ac.kr",
+      "required": "이메일을 입력해주세요",
+      "invalid": "올바른 이메일 형식을 입력해주세요"
+    },
+    "phone": {
+      "label": "휴대폰 번호",
+      "placeholder": "01012341234",
+      "invalid": "올바른 전화번호를 입력해주세요"
+    },
+    "inquiryType": {
+      "label": "문의 구분",
+      "placeholder": "문의 구분을 선택하세요",
+      "options": {
+        "kiwi": "Kiwi 도입 문의",
+        "kiwiFeature": "Kiwi 기능 문의",
+        "kiwiPartnership": "Kiwi 파트너십 문의"
+      }
+    },
+    "inquiryDetails": {
+      "label": "문의 내용",
+      "placeholder": "궁금한 내용을 편하게 알려주세요"
+    },
+    "privacyConsent": {
+      "label": "[필수] 개인정보 수집 동의",
+      "required": "개인정보 수집에 동의해주세요"
+    },
+    "marketingConsent": {
+      "label": "[선택] 이벤트/프로모션 알림 수신 동의"
+    },
+    "submit": "제출"
+  },
+  "footer": {
+    "companyName": "주식회사 라이너스",
+    "address": "서울특별시 강남구 테헤란로2길 27,\n강남비전타워 13층",
+    "privacyPolicy": "개인정보처리방침",
+    "copyright": "Copyright 2026. Linus. All rights reserved."
+  }
+}

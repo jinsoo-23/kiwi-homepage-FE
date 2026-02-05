@@ -1,0 +1,198 @@
+{
+  "metadata": {
+    "title": "Kiwi",
+    "description": "Platform for building an autonomous learning experience ecosystem"
+  },
+  "common": {
+    "skipToContent": "Skip to content",
+    "learnMore": "Learn More",
+    "brochure": "Brochure",
+    "downloadBrochure": "Download Brochure",
+    "mainVisual": "Main Visual",
+    "mainContent": "Main Content"
+  },
+  "hero": {
+    "tagline": "Next-Generation Learning Experience Platform",
+    "previewAlt": "Kiwi platform preview"
+  },
+  "intro": {
+    "headline": "A Platform for Building an Autonomous\nLearning Experience Ecosystem",
+    "headlineHighlight": "Learning Experience Ecosystem",
+    "copy": "We provide a learning experience platform designed to foster empathy and a sense of belonging across your entire community—beyond learning itself.\nBy delivering connected learning experiences, we enable innovative educational approaches through natural collaboration, and offer Kiwi's flexible and effective management solutions tailored to today's increasingly complex education environments."
+  },
+  "architecture": {
+    "sectionTitle": "Robust Architecture",
+    "particle": "'s",
+    "sectionLabel": "Architecture and Partners",
+    "service": {
+      "studentInformationSystem": {
+        "title": "Student Information System",
+        "description": "Course registration, grades, and academic administration support"
+      },
+      "learningManagementSystem": {
+        "title": "Learning Management System",
+        "description": "Individual course management and learning journey delivery"
+      },
+      "contentManagementSystem": {
+        "title": "Content Management System",
+        "description": "Storage and distribution of learning materials and educational content"
+      },
+      "videoProductionSystem": {
+        "title": "Video Production System",
+        "description": "Educational video recording & editing tools, AI-powered video creation"
+      },
+      "virtualClassroomSystem": {
+        "title": "Virtual Classroom System",
+        "description": "Live online classes and seminars"
+      },
+      "communicationSystem": {
+        "title": "Communication System",
+        "description": "Messaging and notifications between learners and instructors"
+      },
+      "collaborationSystem": {
+        "title": "Collaboration System",
+        "description": "Support for shared projects and document collaboration"
+      },
+      "studentSuccessSystem": {
+        "title": "Student Success System",
+        "description": "Personalized advising and support (Major planning, e-Portfolio)"
+      }
+    },
+    "platform": {
+      "unifiedAuth": {
+        "title": "Unified Authentication & Authorization",
+        "description": "Access all services with a single sign-on"
+      },
+      "dataIntegrationLayer": {
+        "title": "Data Integration Layer",
+        "description": "Unified management of data across multiple systems"
+      },
+      "apiGateway": {
+        "title": "API Gateway",
+        "description": "A secure gateway connecting diverse services and data"
+      },
+      "learningAnalyticsSystem": {
+        "title": "Learning Analytics System",
+        "description": "Analyze learning data for personalized recommendations and performance prediction"
+      }
+    },
+    "foundation": {
+      "learningHistoryRepository": {
+        "title": "Learning History Repository",
+        "description": "Standardized storage and management of learning data for analytics"
+      },
+      "featureStore": {
+        "title": "Feature Store",
+        "description": "Store and share data features required for AI analysis"
+      },
+      "knowledgeGraphEngine": {
+        "title": "Knowledge Graph Engine",
+        "description": "Search, recommendations, and inference across users, courses, and content"
+      },
+      "llmServing": {
+        "title": "Large Language Model Serving",
+        "description": "Real-time utilization of large-scale AI models"
+      },
+      "ragStack": {
+        "title": "RAG Stack",
+        "description": "Enhances the accuracy of knowledge retrieval and AI-generated answers"
+      },
+      "multimodalAiEngine": {
+        "title": "Multimodal AI Engine",
+        "description": "Unified processing of text, audio, images, and video data"
+      },
+      "mlops": {
+        "title": "MLOps",
+        "description": "Automated development, deployment, and monitoring of AI models"
+      },
+      "analyticsMart": {
+        "title": "Analytics Mart",
+        "description": "Aggregates KPIs and metrics to support data-driven decision making"
+      }
+    }
+  },
+  "partners": {
+    "sectionTitle": "Trusted Partners",
+    "particle": "'s",
+    "carouselLabel": "Partner logo carousel",
+    "canvas": {
+      "title": "Canvas By Instructure",
+      "description": "A leading global LMS used by thousands of universities and educational institutions worldwide, delivered through Korea’s only official licensed partner—ensuring a stable operating environment and professional technical support.",
+      "descriptionHighlight": "Korea’s only official licensed partner"
+    },
+    "igniteAi": {
+      "title": "Canvas IgniteAI",
+      "description": "An education-purpose AI co-designed by Instructure and OpenAI, powered by OpenAI technology—intelligently supporting the entire learning workflow, from creating assignments, quizzes, and rubrics to summarizing discussions."
+    },
+    "panopto": {
+      "title": "Panopto CMS",
+      "description": "A learning video management platform used by universities and enterprises worldwide, enabling efficient storage and utilization of knowledge assets through automatic lecture recording and powerful search capabilities."
+    },
+    "zoom": {
+      "title": "Zoom",
+      "description": "A video communication service used by hundreds of millions of people worldwide, supporting seamless online classes and meetings."
+    },
+    "slack": {
+      "title": "Slack",
+      "description": "A messaging platform adopted as a standard collaboration tool by global enterprises, strengthening teamwork through real-time communication and seamless file sharing."
+    },
+    "notion": {
+      "title": "Notion",
+      "description": "An all-in-one workspace used by tens of millions worldwide, managing documents, projects, and databases in a single space."
+    },
+    "genwave": {
+      "title": "GenWave",
+      "description": "A multimodal AI platform that automatically generates various media content including images, videos, music, and text with just keywords or simple sentence input."
+    },
+    "diquest": {
+      "title": "diquest e-Portfolio",
+      "description": "A service providing career direction and portfolio based on student-centered academic information and comprehensive LMS design."
+    }
+  },
+  "contact": {
+    "sectionTitle": "Together with",
+    "particle": "",
+    "description": "Please feel free to share your inquiries.\nOur team will get back to you promptly."
+  },
+  "contactForm": {
+    "formLabel": "Contact Form",
+    "email": {
+      "label": "Company / Institution Email",
+      "placeholder": "linus@university.ac.kr",
+      "required": "Please enter your email",
+      "invalid": "Please enter a valid email address"
+    },
+    "phone": {
+      "label": "Mobile Number",
+      "placeholder": "01012341234",
+      "invalid": "Please enter a valid mobile number"
+    },
+    "inquiryType": {
+      "label": "Inquiry Type",
+      "placeholder": "Select inquiry type",
+      "options": {
+        "kiwi": "Kiwi Implementation Inquiry",
+        "kiwiFeature": "Kiwi Feature Inquiry",
+        "kiwiPartnership": "Kiwi Partnership Inquiry"
+      }
+    },
+    "inquiryDetails": {
+      "label": "Inquiry Details",
+      "placeholder": "Please feel free to share your questions or details."
+    },
+    "privacyConsent": {
+      "label": "[Required] Personal Data Collection Consent",
+      "required": "Please agree to the personal data collection consent"
+    },
+    "marketingConsent": {
+      "label": "[Optional] Agree to receive event/promotion notifications"
+    },
+    "submit": "Submit"
+  },
+  "footer": {
+    "companyName": "Linus Co., Ltd.",
+    "address": "13F, Gangnam Bizentower,\n27 Teheran-ro 2-gil, Gangnam-gu, Seoul, South Korea",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "Copyright 2026. Linus. All rights reserved."
+  }
+}

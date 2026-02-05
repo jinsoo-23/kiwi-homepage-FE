@@ -4,9 +4,9 @@ import { useState, useCallback } from "react";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/Tabs";
 import {
   type TabValue,
-  SERVICE_CARDS,
-  PLATFORM_CARDS,
-  FOUNDATION_CARDS,
+  SERVICE_CARD_IDS,
+  PLATFORM_CARD_IDS,
+  FOUNDATION_CARD_IDS,
 } from "@/lib/data/architecture";
 import { cn } from "@/lib/utils";
 import { Box } from "@/components/ui/Box";
@@ -71,7 +71,7 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
   return (
     <Box
       as="section"
-      className="w-full px-0 md:px-6 lg:px-8"
+      className="w-full"
       aria-labelledby={ariaLabelledBy}
     >
       <Tabs
@@ -101,7 +101,8 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
         >
           <TabsContent value="service" className="mt-0">
             <ArchitectureCardGrid
-              cards={SERVICE_CARDS}
+              cardIds={SERVICE_CARD_IDS}
+              tabKey="service"
               cardClassName={cardClassNameByTab.service}
               titleClassName={titleClassNameByTab.service}
               onNavStateChange={handleServiceNavChange}
@@ -109,7 +110,8 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
           </TabsContent>
           <TabsContent value="platform" className="mt-0">
             <ArchitectureCardGrid
-              cards={PLATFORM_CARDS}
+              cardIds={PLATFORM_CARD_IDS}
+              tabKey="platform"
               cols="grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
               cardClassName={cardClassNameByTab.platform}
               titleClassName={titleClassNameByTab.platform}
@@ -119,7 +121,8 @@ export function ServiceSection({ "aria-labelledby": ariaLabelledBy }: ServiceSec
           </TabsContent>
           <TabsContent value="foundation" className="mt-0">
             <ArchitectureCardGrid
-              cards={FOUNDATION_CARDS}
+              cardIds={FOUNDATION_CARD_IDS}
+              tabKey="foundation"
               cardClassName={cardClassNameByTab.foundation}
               titleClassName={titleClassNameByTab.foundation}
               onNavStateChange={handleFoundationNavChange}

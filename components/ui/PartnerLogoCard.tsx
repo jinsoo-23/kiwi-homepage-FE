@@ -14,6 +14,8 @@ type PartnerLogoCardProps = {
   showLearnMoreButton?: boolean;
   /** 버튼 클릭 시 이동할 URL (있으면 링크, 없으면 버튼만) */
   learnMoreHref?: string;
+  /** "더 알아보기" 버튼 텍스트 (다국어 지원용) */
+  learnMoreLabel?: string;
   /** 로고/콘텐츠 영역 가로 정렬 (기본: center) */
   contentJustify?: keyof typeof contentJustifyMap;
   className?: string;
@@ -23,6 +25,7 @@ export function PartnerLogoCard({
   children,
   showLearnMoreButton = false,
   learnMoreHref,
+  learnMoreLabel = "더 알아보기",
   contentJustify = "center",
   className,
 }: PartnerLogoCardProps) {
@@ -34,7 +37,7 @@ export function PartnerLogoCard({
         rel="noopener noreferrer"
         className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--color-border)] px-8 py-2 text-sm font-medium text-label-alternative transition-colors hover:bg-[var(--color-border)]/80"
       >
-        더 알아보기
+        {learnMoreLabel}
       </a>
     ) : (
       <Button
@@ -43,7 +46,7 @@ export function PartnerLogoCard({
         type="button"
         className="shrink-0 rounded-full bg-[var(--color-border)] px-8 py-2 text-label-alternative hover:bg-[var(--color-border)]/80"
       >
-        더 알아보기
+        {learnMoreLabel}
       </Button>
     )
   );
