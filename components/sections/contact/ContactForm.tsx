@@ -68,10 +68,13 @@ export function ContactForm() {
           type="email"
           placeholder={t("email.placeholder")}
           className={cn(inputBase, errors.email && "border-destructive")}
+          aria-required="true"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "contact-email-error" : undefined}
           {...register("email")}
         />
         {errors.email && (
-          <p className="text-xs text-destructive" role="alert">
+          <p id="contact-email-error" className="text-xs text-destructive" role="alert">
             {t("email.invalid")}
           </p>
         )}
@@ -127,11 +130,13 @@ export function ContactForm() {
             type="tel"
             placeholder={t("phone.placeholder")}
             className={cn(inputBase, "h-[46px]", errors.phone && "border-destructive")}
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "contact-phone-error" : undefined}
             {...register("phone")}
           />
         </div>
         {errors.phone && (
-          <p className="text-xs text-destructive" role="alert">
+          <p id="contact-phone-error" className="text-xs text-destructive" role="alert">
             {t("phone.invalid")}
           </p>
         )}
@@ -158,6 +163,8 @@ export function ContactForm() {
                   "!h-[46px] cursor-pointer py-3 font-medium text-label-regular [&_svg]:size-[18px]",
                   errors.inquiryType && "border-destructive"
                 )}
+                aria-invalid={!!errors.inquiryType}
+                aria-describedby={errors.inquiryType ? "contact-inquiry-type-error" : undefined}
               >
                 <SelectValue placeholder={t("inquiryType.placeholder")} />
               </SelectTrigger>
@@ -180,7 +187,7 @@ export function ContactForm() {
           )}
         />
         {errors.inquiryType && (
-          <p className="text-xs text-destructive" role="alert">
+          <p id="contact-inquiry-type-error" className="text-xs text-destructive" role="alert">
             {errors.inquiryType.message}
           </p>
         )}
@@ -196,10 +203,12 @@ export function ContactForm() {
           rows={8}
           placeholder={t("inquiryDetails.placeholder")}
           className={cn(inputBase, "resize-none", errors.message && "border-destructive")}
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
           {...register("message")}
         />
         {errors.message && (
-          <p className="text-xs text-destructive" role="alert">
+          <p id="contact-message-error" className="text-xs text-destructive" role="alert">
             {errors.message.message}
           </p>
         )}
@@ -212,6 +221,9 @@ export function ContactForm() {
             id="contact-privacy"
             type="checkbox"
             className="contact-checkbox mt-1"
+            aria-required="true"
+            aria-invalid={!!errors.privacyConsent}
+            aria-describedby={errors.privacyConsent ? "contact-privacy-error" : undefined}
             {...register("privacyConsent")}
           />
           <label htmlFor="contact-privacy" className="text-sm font-semibold text-label-regular">
@@ -219,7 +231,7 @@ export function ContactForm() {
           </label>
         </div>
         {errors.privacyConsent && (
-          <p className="text-xs text-destructive" role="alert">
+          <p id="contact-privacy-error" className="text-xs text-destructive" role="alert">
             {t("privacyConsent.required")}
           </p>
         )}
