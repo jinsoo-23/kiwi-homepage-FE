@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -13,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { COUNTRY_CODES } from "@/lib/data/countryCodes";
+import { createInquiry, ApiError } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 const INQUIRY_TYPE_KEYS = ["kiwi", "kiwiFeature", "kiwiPartnership"] as const;
@@ -20,34 +22,62 @@ const INQUIRY_TYPE_KEYS = ["kiwi", "kiwiFeature", "kiwiPartnership"] as const;
 const inputBase =
   "w-full rounded-lg border border-[var(--color-input)] bg-background px-4 py-3 text-sm text-label-regular placeholder:text-label-disable focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] focus:ring-offset-0";
 
+type SubmitStatus = "idle" | "success" | "error";
+
 export function ContactForm() {
   const t = useTranslations("contactForm");
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   const {
     register,
     control,
     handleSubmit,
-    watch,
-    formState: { errors, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting, isValid },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
+    mode: "onChange",
     defaultValues: {
+      name: "",
+      companyName: "",
+      email: "",
       countryCode: "+82",
+      phone: "",
       inquiryType: "kiwi",
+      message: "",
       marketingConsent: false,
     },
   });
 
-  const { email, inquiryType, message, privacyConsent } = watch();
+  const onSubmit = async (data: ContactFormValues) => {
+    setSubmitStatus("idle");
+    setErrorMessage("");
 
-  const isFormFilled =
-    !!email?.trim() &&
-    !!inquiryType?.trim() &&
-    !!message?.trim() &&
-    privacyConsent === true;
+    try {
+      const phoneWithCountryCode = data.countryCode + data.phone.replace(/-/g, "");
 
-  const onSubmit = (data: ContactFormValues) => {
-    // TODO: API 연동
-    console.log(data);
+      await createInquiry({
+        name: data.name,
+        companyName: data.companyName,
+        email: data.email,
+        phone: phoneWithCountryCode,
+        inquiryType: data.inquiryType,
+        message: data.message,
+        marketingConsent: data.marketingConsent ?? false,
+        privacyConsent: true,
+      });
+
+      setSubmitStatus("success");
+      reset();
+    } catch (error) {
+      setSubmitStatus("error");
+      if (error instanceof ApiError) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage(t("submitError"));
+      }
+    }
   };
 
   return (
@@ -57,6 +87,70 @@ export function ContactForm() {
       aria-label={t("formLabel")}
     >
       <h3 className="sr-only">{t("formLabel")}</h3>
+
+      {submitStatus === "success" && (
+        <div
+          className="rounded-lg bg-green-50 p-4 text-sm text-green-800"
+          role="alert"
+          aria-live="polite"
+        >
+          {t("submitSuccess")}
+        </div>
+      )}
+
+      {submitStatus === "error" && (
+        <div
+          className="rounded-lg bg-red-50 p-4 text-sm text-red-800"
+          role="alert"
+          aria-live="polite"
+        >
+          {errorMessage}
+        </div>
+      )}
+
+      {/* 이름 */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="contact-name" className="text-sm font-semibold text-label-regular">
+          {t("name.label")} <span className="text-linus-primary">*</span>
+        </label>
+        <input
+          id="contact-name"
+          type="text"
+          placeholder={t("name.placeholder")}
+          className={cn(inputBase, errors.name && "border-destructive")}
+          aria-required="true"
+          aria-invalid={!!errors.name}
+          aria-describedby={errors.name ? "contact-name-error" : undefined}
+          {...register("name")}
+        />
+        {errors.name && (
+          <p id="contact-name-error" className="text-xs text-destructive" role="alert">
+            {t("name.required")}
+          </p>
+        )}
+      </div>
+
+      {/* 기업/기관명 */}
+      <div className="flex flex-col gap-2">
+        <label htmlFor="contact-company-name" className="text-sm font-semibold text-label-regular">
+          {t("companyName.label")} <span className="text-linus-primary">*</span>
+        </label>
+        <input
+          id="contact-company-name"
+          type="text"
+          placeholder={t("companyName.placeholder")}
+          className={cn(inputBase, errors.companyName && "border-destructive")}
+          aria-required="true"
+          aria-invalid={!!errors.companyName}
+          aria-describedby={errors.companyName ? "contact-company-name-error" : undefined}
+          {...register("companyName")}
+        />
+        {errors.companyName && (
+          <p id="contact-company-name-error" className="text-xs text-destructive" role="alert">
+            {t("companyName.required")}
+          </p>
+        )}
+      </div>
 
       {/* 기업/기관 메일 */}
       <div className="flex flex-col gap-2">
@@ -83,7 +177,7 @@ export function ContactForm() {
       {/* 휴대폰 번호 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-phone" className="text-sm font-semibold text-label-regular">
-          {t("phone.label")}
+          {t("phone.label")} <span className="text-linus-primary">*</span>
         </label>
         <div className="flex gap-2">
           <Controller
@@ -130,6 +224,7 @@ export function ContactForm() {
             type="tel"
             placeholder={t("phone.placeholder")}
             className={cn(inputBase, "h-[46px]", errors.phone && "border-destructive")}
+            aria-required="true"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "contact-phone-error" : undefined}
             {...register("phone")}
@@ -145,7 +240,7 @@ export function ContactForm() {
       {/* 문의 구분 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-inquiry-type" className="text-sm font-semibold text-label-regular">
-          {t("inquiryType.label")}
+          {t("inquiryType.label")} <span className="text-linus-primary">*</span>
         </label>
         <Controller
           name="inquiryType"
@@ -196,20 +291,21 @@ export function ContactForm() {
       {/* 문의 내용 */}
       <div className="flex flex-col gap-2">
         <label htmlFor="contact-message" className="text-sm font-semibold text-label-regular">
-          {t("inquiryDetails.label")}
+          {t("inquiryDetails.label")} <span className="text-linus-primary">*</span>
         </label>
         <textarea
           id="contact-message"
           rows={8}
           placeholder={t("inquiryDetails.placeholder")}
           className={cn(inputBase, "resize-none", errors.message && "border-destructive")}
+          aria-required="true"
           aria-invalid={!!errors.message}
           aria-describedby={errors.message ? "contact-message-error" : undefined}
           {...register("message")}
         />
         {errors.message && (
           <p id="contact-message-error" className="text-xs text-destructive" role="alert">
-            {errors.message.message}
+            {t("inquiryDetails.required")}
           </p>
         )}
       </div>
@@ -252,10 +348,10 @@ export function ContactForm() {
 
       <Button
         type="submit"
-        disabled={isSubmitting || !isFormFilled}
-        className="w-full rounded-[100px] bg-linus-primary py-5 text-[18px] font-extrabold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50 mt-3"
+        disabled={isSubmitting || !isValid}
+        className="mt-3 w-full rounded-[100px] bg-linus-primary py-5 text-[18px] font-extrabold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50"
       >
-        {t("submit")}
+        {isSubmitting ? t("submitting") : t("submit")}
       </Button>
     </form>
   );

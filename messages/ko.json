@@ -156,6 +156,16 @@
   },
   "contactForm": {
     "formLabel": "문의 폼",
+    "name": {
+      "label": "담당자",
+      "placeholder": "홍길동",
+      "required": "문의하시는 분의 성함을 입력해주세요"
+    },
+    "companyName": {
+      "label": "기업/기관명",
+      "placeholder": "라이너스",
+      "required": "기업/기관명을 입력해주세요"
+    },
     "email": {
       "label": "기업/기관 메일",
       "placeholder": "linus@university.ac.kr",
@@ -165,6 +175,7 @@
     "phone": {
       "label": "휴대폰 번호",
       "placeholder": "01012341234",
+      "required": "휴대폰 번호를 입력해주세요",
       "invalid": "올바른 전화번호를 입력해주세요"
     },
     "inquiryType": {
@@ -178,7 +189,8 @@
     },
     "inquiryDetails": {
       "label": "문의 내용",
-      "placeholder": "궁금한 내용을 편하게 알려주세요"
+      "placeholder": "궁금한 내용을 편하게 알려주세요",
+      "required": "문의 내용을 입력해주세요"
     },
     "privacyConsent": {
       "label": "[필수] 개인정보 수집 동의",
@@ -187,12 +199,44 @@
     "marketingConsent": {
       "label": "[선택] 이벤트/프로모션 알림 수신 동의"
     },
-    "submit": "제출"
+    "submit": "제출",
+    "submitting": "제출 중...",
+    "submitSuccess": "문의가 성공적으로 접수되었습니다. 담당자가 빠르게 연락드리겠습니다.",
+    "submitError": "문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."
   },
   "footer": {
     "companyName": "주식회사 라이너스",
     "address": "서울특별시 강남구 테헤란로2길 27,\n강남비전타워 13층",
     "privacyPolicy": "개인정보처리방침",
+    "marketingConsentWithdraw": "광고성 정보 수신 철회",
     "copyright": "Copyright 2026. Linus. All rights reserved."
+  },
+  "marketingConsentModal": {
+    "title": "광고성 정보 수신 동의 철회",
+    "description": "문의 시 입력하신 이메일과 휴대폰 번호를 입력해주세요.",
+    "email": {
+      "label": "이메일",
+      "placeholder": "linus@university.ac.kr",
+      "invalid": "올바른 이메일 형식을 입력해주세요"
+    },
+    "phone": {
+      "label": "휴대폰 번호",
+      "placeholder": "01012341234",
+      "invalid": "올바른 전화번호를 입력해주세요"
+    },
+    "cancel": "취소",
+    "submit": "철회하기",
+    "submitting": "처리 중...",
+    "success": "광고성 정보 수신 동의가 철회되었습니다.",
+    "notFound": "입력하신 정보와 일치하는 문의 내역이 없습니다.",
+    "error": "처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+    "close": "닫기"
+  },
+  "privacyPolicy": {
+    "title": "개인정보처리방침",
+    "version": "버전",
+    "updatedAt": "최종 수정일",
+    "loading": "로딩 중...",
+    "error": "개인정보처리방침을 불러오는데 실패했습니다."
   }
 }
