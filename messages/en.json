@@ -156,6 +156,16 @@
   },
   "contactForm": {
     "formLabel": "Contact Form",
+    "name": {
+      "label": "Name",
+      "placeholder": "John Doe",
+      "required": "Please enter your name"
+    },
+    "companyName": {
+      "label": "Company / Institution",
+      "placeholder": "Linus",
+      "required": "Please enter your company or institution name"
+    },
     "email": {
       "label": "Company / Institution Email",
       "placeholder": "linus@university.ac.kr",
@@ -165,6 +175,7 @@
     "phone": {
       "label": "Mobile Number",
       "placeholder": "01012341234",
+      "required": "Please enter your mobile number",
       "invalid": "Please enter a valid mobile number"
     },
     "inquiryType": {
@@ -178,7 +189,8 @@
     },
     "inquiryDetails": {
       "label": "Inquiry Details",
-      "placeholder": "Please feel free to share your questions or details."
+      "placeholder": "Please feel free to share your questions or details.",
+      "required": "Please enter your inquiry details"
     },
     "privacyConsent": {
       "label": "[Required] Personal Data Collection Consent",
@@ -187,12 +199,52 @@
     "marketingConsent": {
       "label": "[Optional] Agree to receive event/promotion notifications"
     },
-    "submit": "Submit"
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitSuccess": "Your inquiry has been successfully submitted. Our team will contact you shortly.",
+    "previousInquiryNotice": "We found a previous inquiry with the same email address.",
+    "submitError": "An error occurred while submitting your inquiry. Please try again later."
   },
   "footer": {
     "companyName": "Linus Co., Ltd.",
     "address": "13F, Gangnam Bizentower,\n27 Teheran-ro 2-gil, Gangnam-gu, Seoul, South Korea",
     "privacyPolicy": "Privacy Policy",
+    "marketingConsentWithdraw": "Withdraw Marketing Consent",
     "copyright": "Copyright 2026. Linus. All rights reserved."
+  },
+  "marketingConsentModal": {
+    "title": "Manage Marketing Consent",
+    "description": "Please enter the email and mobile number you used when submitting your inquiry.",
+    "manageDescription": "You can change your marketing consent status.",
+    "email": {
+      "label": "Email",
+      "placeholder": "linus@university.ac.kr",
+      "invalid": "Please enter a valid email address"
+    },
+    "phone": {
+      "label": "Mobile Number",
+      "placeholder": "01012341234",
+      "invalid": "Please enter a valid mobile number"
+    },
+    "cancel": "Cancel",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "back": "Back",
+    "marketingConsentLabel": "Marketing Consent",
+    "currentlyEnabled": "Currently enabled",
+    "currentlyDisabled": "Currently disabled",
+    "success": "Your marketing consent status has been updated.",
+    "notFound": "No inquiry found matching the provided information.",
+    "error": "An error occurred. Please try again later.",
+    "close": "Close",
+    "save": "Save",
+    "saving": "Saving..."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "version": "Version",
+    "updatedAt": "Last Updated",
+    "loading": "Loading...",
+    "error": "Failed to load the privacy policy."
   }
 }
