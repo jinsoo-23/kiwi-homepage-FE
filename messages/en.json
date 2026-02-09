@@ -236,7 +236,9 @@
     "success": "Your marketing consent status has been updated.",
     "notFound": "No inquiry found matching the provided information.",
     "error": "An error occurred. Please try again later.",
-    "close": "Close"
+    "close": "Close",
+    "save": "Save",
+    "saving": "Saving..."
   },
   "privacyPolicy": {
     "title": "Privacy Policy",

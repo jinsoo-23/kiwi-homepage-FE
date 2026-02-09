@@ -26,6 +26,7 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
   const [step, setStep] = useState<ModalStep>("verify");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [consents, setConsents] = useState<ConsentStatus[]>([]);
+  const [pendingMarketingConsent, setPendingMarketingConsent] = useState<boolean | null>(null);
   const [verifiedEmail, setVerifiedEmail] = useState<string>("");
   const [verifiedPhone, setVerifiedPhone] = useState<string>("");
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
@@ -50,6 +51,8 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
     try {
       const response = await getConsents(data.email, phone);
       setConsents(response.consents);
+      const marketingConsent = response.consents.find((c) => c.consentType === "MARKETING");
+      setPendingMarketingConsent(marketingConsent?.consented ?? false);
       setVerifiedEmail(data.email);
       setVerifiedPhone(phone);
       setStep("manage");
@@ -66,7 +69,19 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
     }
   };
 
-  const onToggleConsent = async (consentType: "MARKETING" | "PRIVACY", newValue: boolean) => {
+  const onToggleConsent = (newValue: boolean) => {
+    setPendingMarketingConsent(newValue);
+  };
+
+  const onSave = async () => {
+    const currentConsent = getMarketingConsent()?.consented ?? false;
+
+    // 변경사항이 없으면 저장하지 않음
+    if (pendingMarketingConsent === currentConsent) {
+      handleOpenChange(false);
+      return;
+    }
+
     setIsUpdating(true);
     setErrorMessage("");
 
@@ -74,13 +89,13 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
       const response = await updateConsent({
         email: verifiedEmail,
         phone: verifiedPhone,
-        consentType,
-        consented: newValue,
+        consentType: "MARKETING",
+        consented: pendingMarketingConsent!,
       });
 
       setConsents((prev) =>
         prev.map((c) =>
-          c.consentType === consentType
+          c.consentType === "MARKETING"
             ? { ...c, consented: response.consented, updatedAt: response.updatedAt }
             : c
         )
@@ -102,6 +117,7 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
       setStep("verify");
       setErrorMessage("");
       setConsents([]);
+      setPendingMarketingConsent(null);
       setVerifiedEmail("");
       setVerifiedPhone("");
       reset();
@@ -157,12 +173,12 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
                       {t("marketingConsentLabel")}
                     </p>
                     <p className="mt-1 text-xs text-label-assistive">
-                      {getMarketingConsent()?.consented ? t("currentlyEnabled") : t("currentlyDisabled")}
+                      {pendingMarketingConsent ? t("currentlyEnabled") : t("currentlyDisabled")}
                     </p>
                   </div>
                   <Switch.Root
-                    checked={getMarketingConsent()?.consented ?? false}
-                    onCheckedChange={(checked) => onToggleConsent("MARKETING", checked)}
+                    checked={pendingMarketingConsent ?? false}
+                    onCheckedChange={onToggleConsent}
                     disabled={isUpdating}
                     className="relative h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors data-[state=checked]:bg-linus-primary disabled:cursor-not-allowed disabled:opacity-50"
                   >
@@ -174,19 +190,20 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
               <div className="flex gap-3">
                 <Button
                   type="button"
-                  onClick={() => setStep("verify")}
-                  className="flex-1 rounded-lg border border-[var(--color-border)] bg-white py-3 text-sm font-semibold text-label-regular hover:bg-gray-50"
+                  onClick={() => handleOpenChange(false)}
+                  disabled={isUpdating}
+                  className="flex-1 rounded-lg border border-[var(--color-border)] bg-white py-3 text-sm font-semibold text-label-regular hover:bg-gray-50 disabled:opacity-50"
                 >
-                  {t("back")}
+                  {t("cancel")}
                 </Button>
-                <Dialog.Close asChild>
-                  <Button
-                    type="button"
-                    className="flex-1 rounded-lg bg-linus-primary py-3 text-sm font-semibold text-linus-white hover:bg-linus-primary-hover"
-                  >
-                    {t("close")}
-                  </Button>
-                </Dialog.Close>
+                <Button
+                  type="button"
+                  onClick={onSave}
+                  disabled={isUpdating}
+                  className="flex-1 rounded-lg bg-linus-primary py-3 text-sm font-semibold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50"
+                >
+                  {isUpdating ? t("saving") : t("save")}
+                </Button>
               </div>
             </div>
           ) : (
