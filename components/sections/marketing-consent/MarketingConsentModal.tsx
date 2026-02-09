@@ -5,15 +5,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import * as Dialog from "@radix-ui/react-dialog";
+import * as Switch from "@radix-ui/react-switch";
 import { marketingConsentSchema, type MarketingConsentFormValues } from "./marketingConsentSchema";
 import { Button } from "@/components/ui/Button";
-import { updateMarketingConsent, ApiError } from "@/lib/api";
+import { getConsents, updateConsent, ApiError, type ConsentStatus } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 const inputBase =
   "w-full rounded-lg border border-[var(--color-input)] bg-background px-4 py-3 text-sm text-label-regular placeholder:text-label-disable focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)] focus:ring-offset-0";
 
-type SubmitStatus = "idle" | "success" | "error";
+type ModalStep = "verify" | "manage" | "success";
 
 interface MarketingConsentModalProps {
   open: boolean;
@@ -22,8 +23,12 @@ interface MarketingConsentModalProps {
 
 export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentModalProps) {
   const t = useTranslations("marketingConsentModal");
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
+  const [step, setStep] = useState<ModalStep>("verify");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [consents, setConsents] = useState<ConsentStatus[]>([]);
+  const [verifiedEmail, setVerifiedEmail] = useState<string>("");
+  const [verifiedPhone, setVerifiedPhone] = useState<string>("");
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   const {
     register,
@@ -38,22 +43,19 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
     },
   });
 
-  const onSubmit = async (data: MarketingConsentFormValues) => {
-    setSubmitStatus("idle");
+  const onVerify = async (data: MarketingConsentFormValues) => {
     setErrorMessage("");
+    const phone = data.phone.replace(/-/g, "");
 
     try {
-      await updateMarketingConsent({
-        email: data.email,
-        phone: data.phone.replace(/-/g, ""),
-      });
-
-      setSubmitStatus("success");
-      reset();
+      const response = await getConsents(data.email, phone);
+      setConsents(response.consents);
+      setVerifiedEmail(data.email);
+      setVerifiedPhone(phone);
+      setStep("manage");
     } catch (error) {
-      setSubmitStatus("error");
       if (error instanceof ApiError) {
-        if (error.errorCode === "INQUIRY_NOT_FOUND") {
+        if (error.errorCode === "CUSTOMER_NOT_FOUND") {
           setErrorMessage(t("notFound"));
         } else {
           setErrorMessage(error.message);
@@ -64,14 +66,50 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
     }
   };
 
+  const onToggleConsent = async (consentType: "MARKETING" | "PRIVACY", newValue: boolean) => {
+    setIsUpdating(true);
+    setErrorMessage("");
+
+    try {
+      const response = await updateConsent({
+        email: verifiedEmail,
+        phone: verifiedPhone,
+        consentType,
+        consented: newValue,
+      });
+
+      setConsents((prev) =>
+        prev.map((c) =>
+          c.consentType === consentType
+            ? { ...c, consented: response.consented, updatedAt: response.updatedAt }
+            : c
+        )
+      );
+      setStep("success");
+    } catch (error) {
+      if (error instanceof ApiError) {
+        setErrorMessage(error.message);
+      } else {
+        setErrorMessage(t("error"));
+      }
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
-      setSubmitStatus("idle");
+      setStep("verify");
       setErrorMessage("");
+      setConsents([]);
+      setVerifiedEmail("");
+      setVerifiedPhone("");
       reset();
     }
     onOpenChange(isOpen);
   };
+
+  const getMarketingConsent = () => consents.find((c) => c.consentType === "MARKETING");
 
   return (
     <Dialog.Root open={open} onOpenChange={handleOpenChange}>
@@ -80,10 +118,10 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-xl border border-[var(--color-border)] bg-white p-6 shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]">
           <Dialog.Title className="text-lg font-bold text-label-regular">{t("title")}</Dialog.Title>
           <Dialog.Description className="mt-2 text-sm text-label-assistive">
-            {t("description")}
+            {step === "verify" ? t("description") : t("manageDescription")}
           </Dialog.Description>
 
-          {submitStatus === "success" ? (
+          {step === "success" ? (
             <div className="mt-6">
               <div
                 className="rounded-lg bg-green-50 p-4 text-sm text-green-800"
@@ -100,9 +138,60 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
                 {t("close")}
               </Button>
             </div>
+          ) : step === "manage" ? (
+            <div className="mt-6 flex flex-col gap-4">
+              {errorMessage && (
+                <div
+                  className="rounded-lg bg-red-50 p-4 text-sm text-red-800"
+                  role="alert"
+                  aria-live="polite"
+                >
+                  {errorMessage}
+                </div>
+              )}
+
+              <div className="rounded-lg border border-[var(--color-border)] p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-label-regular">
+                      {t("marketingConsentLabel")}
+                    </p>
+                    <p className="mt-1 text-xs text-label-assistive">
+                      {getMarketingConsent()?.consented ? t("currentlyEnabled") : t("currentlyDisabled")}
+                    </p>
+                  </div>
+                  <Switch.Root
+                    checked={getMarketingConsent()?.consented ?? false}
+                    onCheckedChange={(checked) => onToggleConsent("MARKETING", checked)}
+                    disabled={isUpdating}
+                    className="relative h-6 w-11 cursor-pointer rounded-full bg-gray-200 transition-colors data-[state=checked]:bg-linus-primary disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <Switch.Thumb className="block h-5 w-5 translate-x-0.5 rounded-full bg-white shadow-lg transition-transform duration-100 will-change-transform data-[state=checked]:translate-x-[22px]" />
+                  </Switch.Root>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <Button
+                  type="button"
+                  onClick={() => setStep("verify")}
+                  className="flex-1 rounded-lg border border-[var(--color-border)] bg-white py-3 text-sm font-semibold text-label-regular hover:bg-gray-50"
+                >
+                  {t("back")}
+                </Button>
+                <Dialog.Close asChild>
+                  <Button
+                    type="button"
+                    className="flex-1 rounded-lg bg-linus-primary py-3 text-sm font-semibold text-linus-white hover:bg-linus-primary-hover"
+                  >
+                    {t("close")}
+                  </Button>
+                </Dialog.Close>
+              </div>
+            </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4">
-              {submitStatus === "error" && (
+            <form onSubmit={handleSubmit(onVerify)} className="mt-6 flex flex-col gap-4">
+              {errorMessage && (
                 <div
                   className="rounded-lg bg-red-50 p-4 text-sm text-red-800"
                   role="alert"
@@ -168,7 +257,7 @@ export function MarketingConsentModal({ open, onOpenChange }: MarketingConsentMo
                   disabled={isSubmitting}
                   className="flex-1 rounded-lg bg-linus-primary py-3 text-sm font-semibold text-linus-white hover:bg-linus-primary-hover disabled:opacity-50"
                 >
-                  {isSubmitting ? t("submitting") : t("submit")}
+                  {isSubmitting ? t("verifying") : t("verify")}
                 </Button>
               </div>
             </form>

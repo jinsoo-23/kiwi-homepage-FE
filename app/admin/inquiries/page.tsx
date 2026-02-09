@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,6 +12,7 @@ import {
   type InquiryStatus,
   type InquiryType,
   type InquiryListParams,
+  type CustomerGroup,
 } from "@/lib/api/admin";
 
 const STATUS_LABELS: Record<InquiryStatus, string> = {
@@ -42,6 +43,19 @@ export default function AdminInquiriesPage() {
   >("");
   const [limit, setLimit] = useState<5 | 10 | 25>(10);
   const [page, setPage] = useState(1);
+  const [expandedCustomers, setExpandedCustomers] = useState<Set<string>>(new Set());
+
+  const toggleCustomerExpand = (customerId: string) => {
+    setExpandedCustomers((prev) => {
+      const next = new Set(prev);
+      if (next.has(customerId)) {
+        next.delete(customerId);
+      } else {
+        next.add(customerId);
+      }
+      return next;
+    });
+  };
 
   const params: InquiryListParams = {
     page,
@@ -216,14 +230,15 @@ export default function AdminInquiriesPage() {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th className="w-8 px-3 py-3"></th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      이름
+                      이메일
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      담당자
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                       기업명
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                      이메일
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                       문의 유형
@@ -243,88 +258,174 @@ export default function AdminInquiriesPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {data?.data.map((inquiry) => (
-                    <tr
-                      key={inquiry.id}
-                      className="cursor-pointer hover:bg-gray-50"
-                      onClick={() =>
-                        router.push(`/admin/inquiries/${inquiry.id}`)
-                      }
-                    >
-                      <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
-                        {inquiry.name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                        {inquiry.companyName}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                        {inquiry.email}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                        {INQUIRY_TYPE_LABELS[inquiry.inquiryType]}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        <span
-                          className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${STATUS_COLORS[inquiry.status]}`}
-                        >
-                          {STATUS_LABELS[inquiry.status]}
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        <span
-                          className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
-                            inquiry.marketingConsent
-                              ? "bg-blue-100 text-blue-800"
-                              : "bg-gray-100 text-gray-600"
-                          }`}
-                        >
-                          {inquiry.marketingConsent ? "동의" : "미동의"}
-                        </span>
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                        {new Date(inquiry.createdAt).toLocaleDateString("ko-KR")}
-                      </td>
-                      <td
-                        className="whitespace-nowrap px-6 py-4 text-sm"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <div className="flex gap-2">
-                          {inquiry.status === "PENDING" ? (
-                            <button
-                              onClick={() =>
-                                handleStatusChange(inquiry.id, "COMPLETED")
-                              }
-                              disabled={statusMutation.isPending}
-                              className="text-blue-600 hover:text-blue-800"
-                            >
-                              완료
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                handleStatusChange(inquiry.id, "PENDING")
-                              }
-                              disabled={statusMutation.isPending}
-                              className="text-yellow-600 hover:text-yellow-800"
-                            >
-                              대기
-                            </button>
-                          )}
-                          <button
-                            onClick={() => handleDelete(inquiry.id)}
-                            disabled={deleteMutation.isPending}
-                            className="text-red-600 hover:text-red-800"
+                  {data?.data.map((customer: CustomerGroup) => {
+                    const isExpanded = expandedCustomers.has(customer.customerId);
+                    const latestInquiry = customer.inquiries[0];
+                    const hasMultiple = customer.inquiryCount > 1;
+
+                    return (
+                      <Fragment key={customer.customerId}>
+                        <tr className="hover:bg-gray-50">
+                          <td className="px-3 py-4 text-center">
+                            {hasMultiple && (
+                              <button
+                                onClick={() => toggleCustomerExpand(customer.customerId)}
+                                className="text-gray-500 hover:text-gray-700"
+                              >
+                                {isExpanded ? "▼" : "▶"}
+                              </button>
+                            )}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                            <div className="flex items-center gap-2">
+                              {customer.email}
+                              {hasMultiple && (
+                                <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-800">
+                                  {customer.inquiryCount}건
+                                </span>
+                              )}
+                            </div>
+                          </td>
+                          <td
+                            className="cursor-pointer whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900"
+                            onClick={() => router.push(`/admin/inquiries/${latestInquiry.id}`)}
                           >
-                            삭제
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                            {latestInquiry.name}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                            {latestInquiry.companyName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                            {INQUIRY_TYPE_LABELS[latestInquiry.inquiryType]}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            <span
+                              className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${STATUS_COLORS[latestInquiry.status]}`}
+                            >
+                              {STATUS_LABELS[latestInquiry.status]}
+                            </span>
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4">
+                            <span
+                              className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${
+                                customer.marketingConsent
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-600"
+                              }`}
+                            >
+                              {customer.marketingConsent ? "동의" : "미동의"}
+                            </span>
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                            {new Date(latestInquiry.createdAt).toLocaleDateString("ko-KR")}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-sm">
+                            <div className="flex gap-2">
+                              {latestInquiry.status === "PENDING" ? (
+                                <button
+                                  onClick={() =>
+                                    handleStatusChange(latestInquiry.id, "COMPLETED")
+                                  }
+                                  disabled={statusMutation.isPending}
+                                  className="text-blue-600 hover:text-blue-800"
+                                >
+                                  완료
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    handleStatusChange(latestInquiry.id, "PENDING")
+                                  }
+                                  disabled={statusMutation.isPending}
+                                  className="text-yellow-600 hover:text-yellow-800"
+                                >
+                                  대기
+                                </button>
+                              )}
+                              <button
+                                onClick={() => handleDelete(latestInquiry.id)}
+                                disabled={deleteMutation.isPending}
+                                className="text-red-600 hover:text-red-800"
+                              >
+                                삭제
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        {isExpanded &&
+                          customer.inquiries.slice(1).map((inquiry) => (
+                            <tr
+                              key={inquiry.id}
+                              className="bg-gray-50 hover:bg-gray-100"
+                            >
+                              <td className="px-3 py-4"></td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-400">
+                                └
+                              </td>
+                              <td
+                                className="cursor-pointer whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-700"
+                                onClick={() => router.push(`/admin/inquiries/${inquiry.id}`)}
+                              >
+                                {inquiry.name}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                {inquiry.companyName}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                {INQUIRY_TYPE_LABELS[inquiry.inquiryType]}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4">
+                                <span
+                                  className={`inline-flex rounded-full px-2 py-1 text-xs font-semibold ${STATUS_COLORS[inquiry.status]}`}
+                                >
+                                  {STATUS_LABELS[inquiry.status]}
+                                </span>
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4"></td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                                {new Date(inquiry.createdAt).toLocaleDateString("ko-KR")}
+                              </td>
+                              <td className="whitespace-nowrap px-6 py-4 text-sm">
+                                <div className="flex gap-2">
+                                  {inquiry.status === "PENDING" ? (
+                                    <button
+                                      onClick={() =>
+                                        handleStatusChange(inquiry.id, "COMPLETED")
+                                      }
+                                      disabled={statusMutation.isPending}
+                                      className="text-blue-600 hover:text-blue-800"
+                                    >
+                                      완료
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={() =>
+                                        handleStatusChange(inquiry.id, "PENDING")
+                                      }
+                                      disabled={statusMutation.isPending}
+                                      className="text-yellow-600 hover:text-yellow-800"
+                                    >
+                                      대기
+                                    </button>
+                                  )}
+                                  <button
+                                    onClick={() => handleDelete(inquiry.id)}
+                                    disabled={deleteMutation.isPending}
+                                    className="text-red-600 hover:text-red-800"
+                                  >
+                                    삭제
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                      </Fragment>
+                    );
+                  })}
                   {data?.data.length === 0 && (
                     <tr>
                       <td
-                        colSpan={8}
+                        colSpan={9}
                         className="px-6 py-12 text-center text-sm text-gray-500"
                       >
                         문의가 없습니다.

@@ -202,6 +202,7 @@
     "submit": "Submit",
     "submitting": "Submitting...",
     "submitSuccess": "Your inquiry has been successfully submitted. Our team will contact you shortly.",
+    "previousInquiryNotice": "We found a previous inquiry with the same email address.",
     "submitError": "An error occurred while submitting your inquiry. Please try again later."
   },
   "footer": {
@@ -212,8 +213,9 @@
     "copyright": "Copyright 2026. Linus. All rights reserved."
   },
   "marketingConsentModal": {
-    "title": "Withdraw Marketing Consent",
+    "title": "Manage Marketing Consent",
     "description": "Please enter the email and mobile number you used when submitting your inquiry.",
+    "manageDescription": "You can change your marketing consent status.",
     "email": {
       "label": "Email",
       "placeholder": "linus@university.ac.kr",
@@ -225,9 +227,13 @@
       "invalid": "Please enter a valid mobile number"
     },
     "cancel": "Cancel",
-    "submit": "Withdraw",
-    "submitting": "Processing...",
-    "success": "Your marketing consent has been withdrawn.",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "back": "Back",
+    "marketingConsentLabel": "Marketing Consent",
+    "currentlyEnabled": "Currently enabled",
+    "currentlyDisabled": "Currently disabled",
+    "success": "Your marketing consent status has been updated.",
     "notFound": "No inquiry found matching the provided information.",
     "error": "An error occurred. Please try again later.",
     "close": "Close"

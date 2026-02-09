@@ -64,32 +64,70 @@ export interface MeResponse {
 export type InquiryStatus = "PENDING" | "COMPLETED";
 export type InquiryType = "kiwi" | "kiwiFeature" | "kiwiPartnership";
 
-export interface InquiryListItem {
+export interface InquiryItem {
+  id: string;
+  name: string;
+  companyName: string;
+  phone: string;
+  inquiryType: InquiryType;
+  status: InquiryStatus;
+  createdAt: string;
+}
+
+export interface CustomerGroup {
+  customerId: string;
+  email: string;
+  marketingConsent: boolean;
+  marketingConsentUpdatedAt: string;
+  inquiryCount: number;
+  inquiries: InquiryItem[];
+}
+
+export interface Inquiry {
   id: string;
   name: string;
   companyName: string;
   email: string;
   phone: string;
   inquiryType: InquiryType;
+  message: string;
   status: InquiryStatus;
   marketingConsent: boolean;
+  privacyConsent: boolean;
   createdAt: string;
 }
 
-export interface Inquiry extends InquiryListItem {
-  message: string;
-  marketingConsent: boolean;
-  privacyConsent: boolean;
-}
-
 export interface InquiryListResponse {
-  data: InquiryListItem[];
+  data: CustomerGroup[];
   pagination: {
     page: number;
     limit: number;
     total: number;
     totalPages: number;
   };
+}
+
+export interface CustomerHistory {
+  customer: {
+    id: string;
+    email: string;
+    createdAt: string;
+  };
+  inquiries: {
+    id: string;
+    name: string;
+    companyName: string;
+    phone: string;
+    inquiryType: InquiryType;
+    message: string;
+    status: InquiryStatus;
+    createdAt: string;
+  }[];
+  consentHistory: {
+    consentType: string;
+    consented: boolean;
+    createdAt: string;
+  }[];
 }
 
 export interface InquiryListParams {
@@ -147,6 +185,10 @@ export async function getInquiries(
 
 export async function getInquiry(id: string): Promise<Inquiry> {
   return adminFetch<Inquiry>(`/inquiries/${id}`);
+}
+
+export async function getCustomerHistory(customerId: string): Promise<CustomerHistory> {
+  return adminFetch<CustomerHistory>(`/customers/${customerId}/history`);
 }
 
 export async function updateInquiryStatus(

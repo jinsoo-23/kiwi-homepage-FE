@@ -28,6 +28,7 @@ export function ContactForm() {
   const t = useTranslations("contactForm");
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [hasPreviousInquiry, setHasPreviousInquiry] = useState<boolean>(false);
 
   const {
     register,
@@ -53,11 +54,12 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormValues) => {
     setSubmitStatus("idle");
     setErrorMessage("");
+    setHasPreviousInquiry(false);
 
     try {
       const phoneWithCountryCode = data.countryCode + data.phone.replace(/-/g, "");
 
-      await createInquiry({
+      const response = await createInquiry({
         name: data.name,
         companyName: data.companyName,
         email: data.email,
@@ -69,6 +71,7 @@ export function ContactForm() {
       });
 
       setSubmitStatus("success");
+      setHasPreviousInquiry(response.hasPreviousInquiry);
       reset();
     } catch (error) {
       setSubmitStatus("error");
@@ -94,7 +97,10 @@ export function ContactForm() {
           role="alert"
           aria-live="polite"
         >
-          {t("submitSuccess")}
+          <p>{t("submitSuccess")}</p>
+          {hasPreviousInquiry && (
+            <p className="mt-2 text-amber-700">{t("previousInquiryNotice")}</p>
+          )}
         </div>
       )}
 
